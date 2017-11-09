@@ -15,7 +15,7 @@ def multiPrompt(prompts):
 
 def mainMenu():
     while 1:
-        print("\n0: add student\n1: show students\n2: modify student\n3: exit");
+        print("\n0: add applicant\n1: show applicants\n2: modify...\n3: exit");
         choice=int(input(">"));
 
         if choice==0:
@@ -25,10 +25,20 @@ def mainMenu():
             jupiter.listStudents();
 
         elif choice==2:
-            jupiter.modifyEntry("applicants","student_id",jupiter.studentCols,jupiter.a_studentCols);
+            modifyMenu();
 
         elif choice==3:
             quit();
+
+def modifyMenu():
+    print("\n0: applicant\n1: return");
+    choice=int(input(">"));
+
+    if choice==0:
+        jupiter.modifyEntry("applicants","student_id",jupiter.studentCols,jupiter.a_studentCols);
+
+    elif choice==1:
+        return;
 
 if __name__=="__main__":
     main();
