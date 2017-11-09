@@ -31,7 +31,13 @@ def mainMenu():
             quit();
 
 def modifyMenu():
-    print("\n0: applicant\n1: return");
+    i=0;
+    for x in jupiter.tableNames:
+        print("{}: {}".format(i,x));
+        i+=1;
+
+    print("{}: return".format(i+1));
+
     choice=int(input(">"));
 
     if choice==0:
