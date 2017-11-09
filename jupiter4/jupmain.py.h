@@ -1,7 +1,7 @@
 void main();
 
-//prompt for all given values in function call, returns array of
-//inputted values
-array multiPrompt(string ...);
+//prompt for all given values in prompts, returns array of
+//inputted values. use with jupiter object's cols arrays
+array multiPrompt(string-array prompts);
 
 void mainMenu();
