@@ -20,7 +20,7 @@ def mainMenu():
         choice=int(input(">"));
 
         if choice==0:
-            jupiter.addStudent(multiPrompt(jupiter.studentCols));
+            jupiter.addStudent(multiPrompt(jupconsts.studentCols));
 
         elif choice==1:
             jupiter.listStudents();

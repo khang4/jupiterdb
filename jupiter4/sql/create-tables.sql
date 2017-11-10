@@ -2,16 +2,26 @@ create table if not exists jupiter.applicants
 (
     student_id int not null,
 
-    first_name varchar(20) not null,
-    last_name varchar(20) not null,
+    first_name varchar(30) not null,
+    last_name varchar(30) not null,
 
     address_city varchar(20),
     address_street varchar(20),
-    address_zip int,
+    address_zip char(5),
     address_state char(2),
 
-    email varchar(20),
-    gender char(1),
+    email varchar(60),
+    gender char(2),
 
     primary key (student_id)
 );
+
+create table if not exists jupiter.phone_number
+(
+    phone_number char(11) not null,
+    student_id int not null,
+
+    primary key (phone_number,student_id),
+
+    foreign key (student_id) references jupiter.applicants (student_id) on delete cascade
+)
