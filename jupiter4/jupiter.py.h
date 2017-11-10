@@ -1,12 +1,5 @@
 class jupiter
 {
-    const string-array tableNames;
-
-    //modifiable applicant columns
-    const string-array studentCols;
-    //actual column names, matched up with the above array
-    const string-array a_studentCols;
-
     //takes size 8 array of student values
     void addStudent(array student);
     //show all student objects

@@ -1,15 +1,12 @@
 import mysql.connector;
+import jupconsts;
 
 class _jupiter:
     def __init__(self,database):
         self.connection=mysql.connector.connect(user="root",password="",host="127.0.0.1",database=database);
         self.cursor=self.connection.cursor();
 
-        self.tableNames=["applicants"];
-
         self.cStudentId=0;
-        self.studentCols=["first name","last name","city","street","zip","state","email","gender"];
-        self.a_studentCols=["first_name","last_name","address_city","address_street","address_zip","address_state","email","gender"];
 
         self.loadIdCounters();
 

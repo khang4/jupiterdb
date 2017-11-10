@@ -1,4 +1,5 @@
 from jupiter import _jupiter;
+import jupconsts;
 
 jupiter=_jupiter("jupiter");
 
@@ -32,7 +33,7 @@ def mainMenu():
 
 def modifyMenu():
     i=0;
-    for x in jupiter.tableNames:
+    for x in jupconsts.tableNames:
         print("{}: {}".format(i,x));
         i+=1;
 
@@ -41,7 +42,7 @@ def modifyMenu():
     choice=int(input(">"));
 
     if choice==0:
-        jupiter.modifyEntry("applicants","student_id",jupiter.studentCols,jupiter.a_studentCols);
+        jupiter.modifyEntry("applicants","student_id",jupconsts.studentCols,jupconsts.a_studentCols);
 
     elif choice==1:
         return;
