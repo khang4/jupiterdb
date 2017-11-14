@@ -24,4 +24,4 @@ create table if not exists jupiter.phone_number
     primary key (phone_number,student_id),
 
     foreign key (student_id) references jupiter.applicants (student_id) on delete cascade
-)
+);
