@@ -8,7 +8,9 @@ def main():
 
     # jupiter.update("applicants","student_id",2,"first_name","big boi john");
 
-    jupiter.add("phone_number",[["9991231523",0],["1234567878",0],["5568951286",3],["123",1]]);
+    # jupiter.add("phone_number",[["9991231523",0],["1234567878",0],["5568951286",3],["123",1]]);
+
+    print(jupiter.getLastId("applicants","student_id"));
 
 #multiple chioce menu, give array of chioces
 def menu(choices):
