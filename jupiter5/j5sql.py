@@ -22,3 +22,13 @@ class _jupiter:
 
         except mysql.connector.Error as err:
             print(err);
+
+    def update(self,table,key,id,col,value):
+        try:
+            self.cursor.execute('''update {} set {}="{}" where {}="{}"'''.format(
+                table,col,value,key,id
+            ));
+            self.connection.commit();
+
+        except mysql.connector.Error as err:
+            print(err);
