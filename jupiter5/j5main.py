@@ -10,10 +10,12 @@ def main():
 
     # jupiter.add("phone_number",[["9991231523",0],["1234567878",0],["5568951286",3],["123",1]]);
 
-    jupiter.add("applicants",[[jupiter.getLastId("applicants","student_id")+1,"super",
-        "johnboi","city place","nowhere ln","2021","aa","someerer@anopnpna/cp","a","1990-1-2"]]);
+    # jupiter.add("applicants",[[jupiter.getLastId("applicants","student_id")+1,"super",
+    #     "johnboi","city place","nowhere ln","2021","aa","someerer@anopnpna/cp","a","1990-1-2"]]);
 
-    print(promptDate(1));
+    # print(promptDate(1));
+
+    choice=menu(["select...","add...","list...","quit"]);
 
 #multiple chioce menu, give array of chioces
 def menu(choices):
