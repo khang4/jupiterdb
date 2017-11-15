@@ -10,6 +10,8 @@ create table if not exists jupiter.applicants
     address_zip char(5),
     address_state char(2),
 
+    birthday date,
+
     email varchar(60),
     gender char(2),
 
