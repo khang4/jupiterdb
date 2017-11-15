@@ -7,22 +7,33 @@ class _jupiter:
         self.cursor=self.connection.cursor();
 
     #GENERAL sql add function
-    #add to give table all values in give array of values
+    #give it table name to add to and array of arrays of values, it will add each
+    #array in values as a seperate row
     def add(self,table,values):
         valuestring="";
-        for i,x in enumerate(values):
-            valuestring+='''"{}"'''.format(x);
+        for iy,y in enumerate(values):
+            valuestring+="(";
 
-            if not i==len(values)-1:
+            for ix,x in enumerate(y):
+                valuestring+='''"{}"'''.format(x);
+
+                if not ix==len(y)-1:
+                    valuestring+=",";
+
+            valuestring+=")";
+
+            if not iy==len(values)-1:
                 valuestring+=",";
 
         try:
-            self.cursor.execute('''insert into {} values ({})'''.format(table,valuestring));
+            self.cursor.execute('''insert into {} values {}'''.format(table,valuestring));
             self.connection.commit();
 
         except mysql.connector.Error as err:
             print(err);
 
+    #GENERAL sql update function
+    #give it table name, primary key to match with id, col to change and new value to put in
     def update(self,table,key,id,col,value):
         try:
             self.cursor.execute('''update {} set {}="{}" where {}="{}"'''.format(
