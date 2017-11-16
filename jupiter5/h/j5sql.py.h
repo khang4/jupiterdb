@@ -2,6 +2,9 @@ class jupiter
 {
     jupiter(string database);
 
+    connection connection;
+    cursor cursor;
+
     /*-- general sql --*/
     void add(string table,array-array-string values);
     void update(string table,string key,string id,string col,string value);

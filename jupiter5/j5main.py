@@ -15,18 +15,33 @@ def main():
 
     # print(promptDate(1));
 
-    jupiter.delRow("applicants","student_id",6);
-
     while 1:
         print();
         choice=menu(["select...","add...","list...","quit"]);
         print();
 
         if choice==0:
-            pass;
+            print("select mode:");
+            selectChoice=menu(["applicant","degree","return"]);
+
+            if selectChoice==0:
+                print("selecting student...");
+
+            elif selectChoice==1:
+                print("selecting degree...");
 
         elif choice==1:
-            pass;
+            print("add mode:");
+            addChoice=menu(["applicant","degree","return"]);
+
+            if addChoice==0:
+                print("adding student...");
+                print(promptValues(["first name:","last name:",["label","address:"],
+                    "city:","street:","zip:","state:",["endlabel"],"email:",
+                    "gender:",["date","birthday:",]]));
+
+            elif addChoice==1:
+                print("adding degree...");
 
         elif choice==2:
             displayApplicants();
@@ -44,16 +59,44 @@ def menu(choices):
     choice=int(input(">"));
 
     if choice<0 or choice>=len(choices):
+        print("! INVALID ENTRY !\n");
         return menu(choices);
 
     return choice;
+
+#prompts for all values in inputted array of values prompts,
+#returns all user's answers in array. no error checking.
+#in the prompts array, use an array prompt instead of a string
+#for special options
+def promptValues(prompts):
+    res=[];
+    indent="";
+    for x in prompts:
+        print();
+        if not isinstance(x,list):
+            print(indent+x);
+            res.append(input(indent+">"));
+
+        else:
+            if x[0]=="date":
+                print(x[1]);
+                res.append(promptDate());
+
+            elif x[0]=="label":
+                print(x[1]);
+                indent="    ";
+
+            elif x[0]=="endlabel":
+                indent="";
+
+    return res;
 
 #prompt user for things in a date, returns a date string
 #enterable into a sql query
 #include time=1 to also prompt for time and return datetime string
 #DOES NO ERROR CHECKING! if they entered something bad the sql will
 #crash
-def promptDate(time):
+def promptDate(time=0):
     datestr="";
 
     print("year:");
