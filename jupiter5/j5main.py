@@ -15,9 +15,28 @@ def main():
 
     # print(promptDate(1));
 
-    choice=menu(["select...","add...","list...","quit"]);
+    jupiter.delRow("applicants","student_id",6);
 
-#multiple chioce menu, give array of chioces
+    while 1:
+        print();
+        choice=menu(["select...","add...","list...","quit"]);
+        print();
+
+        if choice==0:
+            pass;
+
+        elif choice==1:
+            pass;
+
+        elif choice==2:
+            displayApplicants();
+
+        elif choice==3:
+            quit();
+
+#multiple chioce menu, give array of chioces and return
+#the picked answer. multiple choice means the answer must be
+#an int!
 def menu(choices):
     for i,x in enumerate(choices):
         print("{}: {}".format(i,x));
@@ -64,6 +83,12 @@ def promptDate(time):
 
     return datestr;
 
+def displayApplicants():
+    print("applicants list:");
+    applicants=jupiter.getApplicants();
+
+    for x in applicants:
+        print('''{}: {}, {}'''.format(x[0],x[2],x[1]));
 
 if __name__=="__main__":
     main();

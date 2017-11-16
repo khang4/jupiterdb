@@ -44,6 +44,16 @@ class _jupiter:
         except mysql.connector.Error as err:
             print(err);
 
+    #general sql delete a row. give it table name, primary key, and the
+    #value of the primary key of the row to delete
+    def delRow(self,table,key,id):
+        try:
+            self.cursor.execute('''delete from {} where {}="{}"'''.format(table,key,id));
+            self.connection.commit();
+
+        except mysql.connector.Error as err:
+            print(err);
+
     #return the highest id value of the given table and correct
     #primary key for that table, only applicable FOR TABLES that
     #HAVE INTEGER IDS FOR PRIMARY KEY!!!!!
@@ -57,3 +67,13 @@ class _jupiter:
         except mysql.connector.Error as err:
             print(err);
             return -1;
+
+    #returns list of all applicants with last name, first name and student id
+    def getApplicants(self):
+        try:
+            self.cursor.execute("select student_id,last_name,first_name from applicants");
+            return self.cursor.fetchall();
+
+        except mysql.connector.Error as err:
+            print(err);
+            return [];
