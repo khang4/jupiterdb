@@ -86,3 +86,12 @@ class _jupiter:
         except mysql.connector.Error as err:
             print(err);
             return [];
+
+    def getDegrees(self):
+        try:
+            self.cursor.execute("select degree_name from degree");
+            return self.cursor.fetchall();
+
+        except mysql.connector.Error as err:
+            print(err);
+            return [];

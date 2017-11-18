@@ -48,9 +48,19 @@ def main():
 
             elif addChoice==1:
                 print("adding degree...");
+                degreevalues=promptValues(["degree name:","department:","director:","email:","phone:"]);
+
+                jupiter.add("degree",[degreevalues]);
 
         elif choice==2:
-            displayApplicants();
+            print("list mode:");
+            listchoice=menu(["applicants","degrees","return"]);
+
+            if listchoice==0:
+                displayApplicants();
+
+            elif listchoice==1:
+                displayDegrees();
 
         elif choice==3:
             quit();
@@ -138,6 +148,13 @@ def displayApplicants():
 
     for x in applicants:
         print('''{}: {}, {}'''.format(x[0],x[2],x[1]));
+
+def displayDegrees():
+    print("degrees list:");
+    degrees=jupiter.getDegrees();
+
+    for x in degrees:
+        print(x[0]);
 
 if __name__=="__main__":
     main();
