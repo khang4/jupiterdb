@@ -87,6 +87,7 @@ class _jupiter:
             print(err);
             return [];
 
+    #get names of degree programs
     def getDegrees(self):
         try:
             self.cursor.execute("select degree_name from degree");
@@ -95,3 +96,12 @@ class _jupiter:
         except mysql.connector.Error as err:
             print(err);
             return [];
+
+    def getStudent(self,id):
+        try:
+            self.cursor.execute('''select * from applicants where student_id="{}"'''.format(id));
+            return self.cursor.fetchone();
+
+        except mysql.connector.Error as err:
+            print(err);
+            return 0;

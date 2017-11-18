@@ -15,4 +15,5 @@ class jupiter
 
     /*-- applicants --*/
     array getApplicants();
+    array getDegrees();
 }

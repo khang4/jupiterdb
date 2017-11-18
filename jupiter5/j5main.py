@@ -27,6 +27,7 @@ def main():
 
             if selectChoice==0:
                 print("selecting student...");
+                studentMode();
 
             elif selectChoice==1:
                 print("selecting degree...");
@@ -121,7 +122,7 @@ def promptDate(time=0):
 
     print("month:");
     datestr+=input(">");
-    datestr+="-"
+    datestr+="-";
 
     print("day:");
     datestr+=input(">");
@@ -155,6 +156,38 @@ def displayDegrees():
 
     for x in degrees:
         print(x[0]);
+
+def studentMode():
+    print("enter student id or letter to quit:");
+    selectedId=input(">");
+
+    if not selectedId.isdigit():
+        return;
+
+    currentStudent=jupiter.getStudent(selectedId);
+
+    if not currentStudent:
+        return;
+
+    while 1:
+        print("\nselected student: {}, {}".format(currentStudent[1],currentStudent[2]));
+        choice=menu(["view information","edit information","view/edit phone numbers","view/edit applications","return"]);
+
+        if choice==0:
+            pass;
+
+        elif choice==1:
+            pass;
+
+        elif choice==2:
+            pass;
+
+        elif choice==3:
+            pass;
+
+        elif choice==4:
+            return;
+
 
 if __name__=="__main__":
     main();
