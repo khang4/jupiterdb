@@ -1,4 +1,5 @@
 from j5sql import _jupiter;
+import j5const;
 
 jupiter=_jupiter("jupiter");
 
@@ -36,9 +37,14 @@ def main():
 
             if addChoice==0:
                 print("adding student...");
-                print(promptValues(["first name:","last name:",["label","address:"],
+                studentvalues=promptValues(["first name:","last name:",["label","address:"],
                     "city:","street:","zip:","state:",["endlabel"],"email:",
-                    "gender:",["date","birthday:",]]));
+                    "gender:",["date","birthday:",]]);
+
+                studentvalues.insert(0,j5const.tableMaxKeys["applicants"]+1);
+
+                if jupiter.add("applicants",[studentvalues]):
+                    j5const.tableMaxKeys["applicants"]+=1;
 
             elif addChoice==1:
                 print("adding degree...");
@@ -72,10 +78,10 @@ def promptValues(prompts):
     res=[];
     indent="";
     for x in prompts:
-        print();
         if not isinstance(x,list):
             print(indent+x);
             res.append(input(indent+">"));
+            print();
 
         else:
             if x[0]=="date":

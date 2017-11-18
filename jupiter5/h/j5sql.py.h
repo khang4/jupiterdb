@@ -6,9 +6,11 @@ class jupiter
     cursor cursor;
 
     /*-- general sql --*/
-    void add(string table,array-array-string values);
-    void update(string table,string key,string id,string col,string value);
-    void delRow(string table,string key,string id);
+    //add,update,delrow return 1 on success, 0 on fail
+    int add(string table,array-array-string values);
+    int update(string table,string key,string id,string col,string value);
+    int delRow(string table,string key,string id);
+
     int getLastId(string table,string primaryKey);
 
     /*-- applicants --*/

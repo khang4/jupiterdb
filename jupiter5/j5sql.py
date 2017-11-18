@@ -31,6 +31,9 @@ class _jupiter:
 
         except mysql.connector.Error as err:
             print(err);
+            return 0;
+
+        return 1;
 
     #GENERAL sql update function
     #give it table name, primary key to match with id, col to change and new value to put in
@@ -43,6 +46,9 @@ class _jupiter:
 
         except mysql.connector.Error as err:
             print(err);
+            return 0;
+
+        return 1;
 
     #general sql delete a row. give it table name, primary key, and the
     #value of the primary key of the row to delete
@@ -53,6 +59,9 @@ class _jupiter:
 
         except mysql.connector.Error as err:
             print(err);
+            return 0;
+
+        return 1;
 
     #return the highest id value of the given table and correct
     #primary key for that table, only applicable FOR TABLES that
