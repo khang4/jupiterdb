@@ -108,3 +108,15 @@ class _jupiter:
         except mysql.connector.Error as err:
             print(err);
             return 0;
+
+    def getPhones(self,id):
+        try:
+            self.cursor.execute('''select phone_number from phone_number where student_id="{}"'''.format(id));
+            res=[];
+            for x in self.cursor:
+                res.append(x[0]);
+            return res;
+
+        except mysql.connector.Error as err:
+            print(err);
+            return 0;

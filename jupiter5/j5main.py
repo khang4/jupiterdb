@@ -18,7 +18,7 @@ def main():
                 studentMode();
 
             elif selectChoice==1:
-                print("selecting degree...");
+                degreeMode();
 
         elif choice==1:
             print("add mode:");
@@ -59,15 +59,15 @@ def main():
 #an int!
 def menu(choices):
     for i,x in enumerate(choices):
-        print("{}: {}".format(i,x));
+        print("{}: {}".format(i+1,x));
 
     choice=int(input(">"));
 
-    if choice<0 or choice>=len(choices):
+    if choice<1 or choice>=len(choices)+1:
         print("! INVALID ENTRY !\n");
         return menu(choices);
 
-    return choice;
+    return choice-1;
 
 #prompts for all values in inputted array of values prompts,
 #returns all user's answers in array. no error checking.
@@ -162,7 +162,6 @@ def studentMode():
         choice=menu(["view information","edit information","view/edit phone numbers","view/edit applications","return"]);
 
         if choice==0:
-            # print(currentStudent);
             print("name: {},{}".format(currentStudent[2],currentStudent[1]));
             print("address: {}, {}, {}, {}".format(currentStudent[4],currentStudent[3],currentStudent[6],currentStudent[5]));
             print("email: {}".format(currentStudent[7]));
@@ -173,7 +172,30 @@ def studentMode():
             pass;
 
         elif choice==2:
-            pass;
+            while 1:
+                print("{}, {}: phone numbers:".format(currentStudent[1],currentStudent[2]));
+                numbers=jupiter.getPhones(currentStudent[0]);
+
+                for ix,x in enumerate(numbers):
+                    print("{}: {}".format(ix,x));
+
+                phonechoice=menu(["edit...","add...","return"]);
+
+                if phonechoice==0:
+                    print("select phone number to edit (input number next to phone number in list):");
+                    phoneEditChoice=int(input(">"));
+                    print("new phone number:");
+                    newPhone=input(">");
+                    jupiter.update("phone_number",["phone_number","student_id"],
+                        [numbers[phoneEditChoice],currentStudent[0]],"phone_number",newPhone);
+
+                if phonechoice==1:
+                    print("adding phone number:");
+                    newNumber=input(">");
+                    jupiter.add("phone_number",[[newNumber,currentStudent[0]]]);
+
+                if phonechoice==2:
+                    break;
 
         elif choice==3:
             pass;
@@ -181,6 +203,28 @@ def studentMode():
         elif choice==4:
             return;
 
+def degreeMode():
+    while 1:
+        print("degrees:");
+
+        degrees=jupiter.getDegrees();
+        for ix,x in enumerate(degrees):
+            print("{}: {}".format(ix,x));
+        print();
+
+        choice=menu(["select","add","return"]);
+
+        if choice==0:
+            pass;
+
+        elif choice==1:
+            newDegree=promptValues(["degree name: ","department: ","director: ","email: ",
+                "phone: "]);
+
+            jupiter.add("degree",[newDegree]);
+
+        elif choice==2:
+            return;
 
 if __name__=="__main__":
     main();

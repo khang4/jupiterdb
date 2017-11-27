@@ -16,4 +16,6 @@ class jupiter
     /*-- applicants --*/
     array getApplicants();
     array getDegrees();
+    array getStudent(int id);
+    array getPhones(int id);
 }
