@@ -6,52 +6,39 @@ jupiter=_jupiter("jupiter");
 def main():
     while 1:
         print();
-        choice=menu(["select...","add...","list...","quit"]);
+        choice=menu(["student mode","degree mode","quit"]);
         print();
 
+        #student mode selected
         if choice==0:
-            print("select mode:");
-            selectChoice=menu(["applicant","degree","return"]);
+            while 1:
+                print("students:");
+                displayApplicants();
+                print();
 
-            if selectChoice==0:
-                print("selecting student...");
-                studentMode();
+                studentChoice=menu(["select student","add","return"]);
 
-            elif selectChoice==1:
-                degreeMode();
+                if studentChoice==0:
+                    studentMode();
 
+                elif studentChoice==1:
+                    studentvalues=promptValues(["first name:","last name:",["label","address:"],
+                        "city:","street:","zip:","state:",["endlabel"],"email:",
+                        "gender:",["date","birthday:",]]);
+
+                    studentvalues.insert(0,j5const.tableMaxKeys["applicants"]+1);
+
+                    if jupiter.add("applicants",[studentvalues]):
+                        j5const.tableMaxKeys["applicants"]+=1;
+
+                elif studentChoice==2:
+                    break;
+
+        #degree mode selected
         elif choice==1:
-            print("add mode:");
-            addChoice=menu(["applicant","degree","return"]);
-
-            if addChoice==0:
-                print("adding student...");
-                studentvalues=promptValues(["first name:","last name:",["label","address:"],
-                    "city:","street:","zip:","state:",["endlabel"],"email:",
-                    "gender:",["date","birthday:",]]);
-
-                studentvalues.insert(0,j5const.tableMaxKeys["applicants"]+1);
-
-                if jupiter.add("applicants",[studentvalues]):
-                    j5const.tableMaxKeys["applicants"]+=1;
-
-            elif addChoice==1:
-                print("adding degree...");
-                degreevalues=promptValues(["degree name:","department:","director:","email:","phone:"]);
-
-                jupiter.add("degree",[degreevalues]);
+            degreeMode();
 
         elif choice==2:
-            print("list mode:");
-            listchoice=menu(["applicants","degrees","return"]);
-
-            if listchoice==0:
-                displayApplicants();
-
-            elif listchoice==1:
-                displayDegrees();
-
-        elif choice==3:
             quit();
 
 #multiple chioce menu, give array of chioces and return
