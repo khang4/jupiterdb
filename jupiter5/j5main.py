@@ -205,11 +205,10 @@ def degreeMode():
         #select degree
         if choice==0:
             print("enter the number left of the degree to select it");
-            currentDegree=int(input(">"));
-
-            currentDegree=jupiter.getDegree(degrees[currentDegree]);
+            currentDegreeString=degrees[int(input(">"))];
 
             while 1:
+                currentDegree=jupiter.getDegree(currentDegreeString);
                 print("degree selected:");
                 print("name: {}".format(currentDegree[0]));
                 print("department: {}".format(currentDegree[1]));
@@ -220,7 +219,12 @@ def degreeMode():
                 selectedDegreeChoice=menu(["edit","requirements","rubric","delete","return"]);
 
                 if selectedDegreeChoice==0:
-                    pass;
+                    print("select field to edit:");
+                    editChoice=menu(["name","department","director","email","phone"]);
+                    degreeColumns=["degree_name","department","director","email","phone_number"];
+                    print("new value:");
+                    newValue=input(">");
+                    jupiter.update("degree","degree_name",currentDegree[0],degreeColumns[editChoice],newValue);
 
                 elif selectedDegreeChoice==1:
                     pass;
