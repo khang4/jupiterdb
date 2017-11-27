@@ -71,6 +71,9 @@ class _jupiter:
             self.cursor.execute("select max({}) from {}".format(primaryKey,table));
 
             for x in self.cursor:
+                if not x[0]:
+                    return 0;
+
                 return x[0];
 
         except mysql.connector.Error as err:

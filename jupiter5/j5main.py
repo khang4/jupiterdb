@@ -4,18 +4,6 @@ import j5const;
 jupiter=_jupiter("jupiter");
 
 def main():
-    # jupiter.add("bob",[["a",2,5,"asdasda","somewhere.com","bob tyhe weasle"]]);
-    # jupiter.add("applicants",[[0,"big","john2","top mtn","snow lane",21312,"go","uloseboi@somewhere.com","g"]]);
-
-    # jupiter.update("applicants","student_id",2,"first_name","big boi john");
-
-    # jupiter.add("phone_number",[["9991231523",0],["1234567878",0],["5568951286",3],["123",1]]);
-
-    # jupiter.add("applicants",[[jupiter.getLastId("applicants","student_id")+1,"super",
-    #     "johnboi","city place","nowhere ln","2021","aa","someerer@anopnpna/cp","a","1990-1-2"]]);
-
-    # print(promptDate(1));
-
     while 1:
         print();
         choice=menu(["select...","add...","list...","quit"]);
@@ -174,7 +162,12 @@ def studentMode():
         choice=menu(["view information","edit information","view/edit phone numbers","view/edit applications","return"]);
 
         if choice==0:
-            pass;
+            # print(currentStudent);
+            print("name: {},{}".format(currentStudent[2],currentStudent[1]));
+            print("address: {}, {}, {}, {}".format(currentStudent[4],currentStudent[3],currentStudent[6],currentStudent[5]));
+            print("email: {}".format(currentStudent[7]));
+            print("gender: {}".format(currentStudent[8]));
+            print("birthday: {}".format(str(currentStudent[9])));
 
         elif choice==1:
             pass;
