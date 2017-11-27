@@ -196,14 +196,46 @@ def degreeMode():
 
         degrees=jupiter.getDegrees();
         for ix,x in enumerate(degrees):
-            print("{}: {}".format(ix,x));
+            degrees[ix]=x[0];
+            print("{}: {}".format(ix,x[0]));
         print();
 
         choice=menu(["select","add","return"]);
 
+        #select degree
         if choice==0:
-            pass;
+            print("enter the number left of the degree to select it");
+            currentDegree=int(input(">"));
 
+            currentDegree=jupiter.getDegree(degrees[currentDegree]);
+
+            while 1:
+                print("degree selected:");
+                print("name: {}".format(currentDegree[0]));
+                print("department: {}".format(currentDegree[1]));
+                print("director: {}".format(currentDegree[2]));
+                print("email: {}".format(currentDegree[3]));
+                print("phone: {}".format(currentDegree[4]));
+
+                selectedDegreeChoice=menu(["edit","requirements","rubric","delete","return"]);
+
+                if selectedDegreeChoice==0:
+                    pass;
+
+                elif selectedDegreeChoice==1:
+                    pass;
+
+                elif selectedDegreeChoice==2:
+                    pass;
+
+                elif selectedDegreeChoice==3:
+                    pass;
+
+                elif selectedDegreeChoice==4:
+                    break;
+
+
+        #add new degree
         elif choice==1:
             newDegree=promptValues(["degree name: ","department: ","director: ","email: ",
                 "phone: "]);

@@ -18,4 +18,5 @@ class jupiter
     array getDegrees();
     array getStudent(int id);
     array getPhones(int id);
+    array getDegree(string name);
 }

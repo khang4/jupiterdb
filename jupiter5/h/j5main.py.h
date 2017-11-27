@@ -13,3 +13,4 @@ void displayDegrees();
 
 /*-- menus --*/
 void studentMode();
+void degreeMode();

@@ -120,3 +120,12 @@ class _jupiter:
         except mysql.connector.Error as err:
             print(err);
             return 0;
+
+    def getDegree(self,name):
+        try:
+            self.cursor.execute('''select * from degree where degree_name="{}"'''.format(name));
+            return self.cursor.fetchone();
+
+        except mysql.connector.Error as err:
+            print(err);
+            return 0;
