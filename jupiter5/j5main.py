@@ -145,20 +145,34 @@ def studentMode():
         return;
 
     while 1:
-        print("\nselected student: {}, {}".format(currentStudent[1],currentStudent[2]));
-        choice=menu(["view information","edit information","view/edit phone numbers","view/edit applications","return"]);
+        print("selected student:");
+        print("name: {},{}".format(currentStudent[2],currentStudent[1]));
+        print("address: {}, {}, {}, {}".format(currentStudent[4],currentStudent[3],currentStudent[6],currentStudent[5]));
+        print("email: {}".format(currentStudent[7]));
+        print("gender: {}".format(currentStudent[8]));
+        print("birthday: {}".format(str(currentStudent[9])));
+
+        choice=menu(["edit","phone numbers","applications","return"]);
 
         if choice==0:
-            print("name: {},{}".format(currentStudent[2],currentStudent[1]));
-            print("address: {}, {}, {}, {}".format(currentStudent[4],currentStudent[3],currentStudent[6],currentStudent[5]));
-            print("email: {}".format(currentStudent[7]));
-            print("gender: {}".format(currentStudent[8]));
-            print("birthday: {}".format(str(currentStudent[9])));
+            print("select field to edit:");
+            editChoice=menu(["first name","last name","addresss: city","address: street","address: zip","address: state"
+                ,"email","gender","birthday"]);
+
+            studentColumns=["first_name","last_name","address_city","address_street",
+                "address_zip","address_state","email","gender","birthday"];
+
+            print("new value:");
+
+            newValue="";
+            if editChoice!=8:
+                newValue=input(">");
+            else:
+                newValue=promptDate();
+
+            jupiter.update("applicants","student_id",currentStudent[0],studentColumns[editChoice],newValue);
 
         elif choice==1:
-            pass;
-
-        elif choice==2:
             while 1:
                 print("{}, {}: phone numbers:".format(currentStudent[1],currentStudent[2]));
                 numbers=jupiter.getPhones(currentStudent[0]);
@@ -184,10 +198,10 @@ def studentMode():
                 if phonechoice==2:
                     break;
 
-        elif choice==3:
+        elif choice==2:
             pass;
 
-        elif choice==4:
+        elif choice==3:
             return;
 
 def degreeMode():
