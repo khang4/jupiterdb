@@ -9,6 +9,7 @@ class jupiter
     //add,update,delrow return 1 on success, 0 on fail
     int add(string table,array-array-string values);
     int update(string table,string key,string id,string col,string value);
+    int update(string table,string-array key,string-array id,string col,string value);
     int delRow(string table,string key,string id);
 
     int getLastId(string table,string primaryKey);
@@ -19,4 +20,8 @@ class jupiter
     array getStudent(int id);
     array getPhones(int id);
     array getDegree(string name);
+
+    /*-- utility --*/
+    string genPrimaryWhere(string key,string id);
+    string genPrimaryWhere(string-array key,string-array id);
 }

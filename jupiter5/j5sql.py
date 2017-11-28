@@ -40,16 +40,7 @@ class _jupiter:
     #key and id can both be arrays OF THE SAME SIZE to allow it to updadte tables
     #with multi-primary key (like phone numbers)
     def update(self,table,key,id,col,value):
-        whereString="";
-        if isinstance(key,list):
-            for ix,x in enumerate(key):
-                whereString+='''{}="{}"'''.format(x,id[ix]);
-
-                if not ix==len(key)-1:
-                    whereString+=" and ";
-
-        else:
-            whereString='''{}="{}"'''.format(key,id);
+        whereString=genPrimaryWhere(key,id);
 
         try:
             self.cursor.execute('''update {} set {}="{}" where {}'''.format(
@@ -66,8 +57,9 @@ class _jupiter:
     #general sql delete a row. give it table name, primary key, and the
     #value of the primary key of the row to delete
     def delRow(self,table,key,id):
+        whereString=genPrimaryWhere(key,id);
         try:
-            self.cursor.execute('''delete from {} where {}="{}"'''.format(table,key,id));
+            self.cursor.execute('''delete from {} where {}'''.format(table,whereString));
             self.connection.commit();
 
         except mysql.connector.Error as err:
@@ -142,3 +134,19 @@ class _jupiter:
         except mysql.connector.Error as err:
             print(err);
             return 0;
+
+#assemble key names from array key to strings from ids with ANDS
+#useful for matching primary keys
+def genPrimaryWhere(key,id):
+    whereString="";
+    if isinstance(key,list):
+        for ix,x in enumerate(key):
+            whereString+='''{}="{}"'''.format(x,id[ix]);
+
+            if not ix==len(key)-1:
+                whereString+=" and ";
+
+    else:
+        whereString='''{}="{}"'''.format(key,id);
+
+    return whereString;

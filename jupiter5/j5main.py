@@ -185,7 +185,7 @@ def studentMode():
                 for ix,x in enumerate(numbers):
                     print("{}: {}".format(ix,x));
 
-                phonechoice=menu(["edit","add","return"]);
+                phonechoice=menu(["edit","add","delete","return"]);
 
                 if phonechoice==0:
                     print("select phone number to edit (input number next to phone number in list):");
@@ -201,6 +201,12 @@ def studentMode():
                     jupiter.add("phone_number",[[newNumber,currentStudent[0]]]);
 
                 if phonechoice==2:
+                    print("select phone number to delete (input number next to phone number in list):");
+                    phoneDeleteChoice=int(input(">"));
+                    jupiter.delRow("phone_number",["phone_number","student_id"],
+                        [numbers[phoneDeleteChoice],currentStudent[0]]);
+
+                if phonechoice==3:
                     break;
 
         elif choice==2:
