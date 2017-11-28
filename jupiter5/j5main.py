@@ -48,8 +48,13 @@ def menu(choices):
     for i,x in enumerate(choices):
         print("{}: {}".format(i+1,x));
 
-    choice=int(input(">"));
+    choice=input(">");
 
+    if not choice.isdigit():
+        print("! INVALID ENTRY !\n");
+        return menu(choices);
+
+    choice=int(choice);
     if choice<1 or choice>=len(choices)+1:
         print("! INVALID ENTRY !\n");
         return menu(choices);
@@ -247,11 +252,12 @@ def degreeMode():
                     pass;
 
                 elif selectedDegreeChoice==3:
-                    pass;
+                    jupiter.delRow("degree","degree_name",currentDegree[0]);
+                    print("deleting degree {}...".format(currentDegree[0]));
+                    break;
 
                 elif selectedDegreeChoice==4:
                     break;
-
 
         #add new degree
         elif choice==1:
