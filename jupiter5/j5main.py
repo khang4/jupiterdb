@@ -139,12 +139,12 @@ def studentMode():
     if not selectedId.isdigit():
         return;
 
-    currentStudent=jupiter.getStudent(selectedId);
-
-    if not currentStudent:
-        return;
-
     while 1:
+        currentStudent=jupiter.getStudent(selectedId);
+
+        if not currentStudent:
+            return;
+
         print("selected student:");
         print("name: {},{}".format(currentStudent[2],currentStudent[1]));
         print("address: {}, {}, {}, {}".format(currentStudent[4],currentStudent[3],currentStudent[6],currentStudent[5]));
