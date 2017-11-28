@@ -185,7 +185,7 @@ def studentMode():
                 for ix,x in enumerate(numbers):
                     print("{}: {}".format(ix,x));
 
-                phonechoice=menu(["edit...","add...","return"]);
+                phonechoice=menu(["edit","add","return"]);
 
                 if phonechoice==0:
                     print("select phone number to edit (input number next to phone number in list):");

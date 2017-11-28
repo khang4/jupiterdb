@@ -37,10 +37,23 @@ class _jupiter:
 
     #GENERAL sql update function
     #give it table name, primary key to match with id, col to change and new value to put in
+    #key and id can both be arrays OF THE SAME SIZE to allow it to updadte tables
+    #with multi-primary key (like phone numbers)
     def update(self,table,key,id,col,value):
+        whereString="";
+        if isinstance(key,list):
+            for ix,x in enumerate(key):
+                whereString+='''{}="{}"'''.format(x,id[ix]);
+
+                if not ix==len(key)-1:
+                    whereString+=" and ";
+
+        else:
+            whereString='''{}="{}"'''.format(key,id);
+
         try:
-            self.cursor.execute('''update {} set {}="{}" where {}="{}"'''.format(
-                table,col,value,key,id
+            self.cursor.execute('''update {} set {}="{}" where {}'''.format(
+                table,col,value,whereString
             ));
             self.connection.commit();
 

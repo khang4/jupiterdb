@@ -38,3 +38,23 @@ create table if not exists jupiter.phone_number
 
     foreign key (student_id) references jupiter.applicants (student_id) on delete cascade
 );
+
+create table if not exists jupiter.requirement
+(
+    requirement_id int not null,
+    degree_name varchar(30) not null,
+    question varchar(180),
+
+    primary key (requirement_id),
+    foreign key (degree_name) references jupiter.degree (degree_name) on delete cascade
+);
+
+create table if not exists jupiter.answers
+(
+    answer_id int not null,
+    requirement_id int not null,
+    answer varchar(280),
+
+    primary key (answer_id,requirement_id),
+
+);
