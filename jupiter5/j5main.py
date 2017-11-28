@@ -270,7 +270,12 @@ def degreeMode():
                         resChoice=menu(["select","add","return"]);
 
                         if resChoice==0:
-                            pass;
+                            print("enter id of requirement to select:");
+                            selectedReqId=int(input(">"));
+
+                            while 1:
+                                print("answers of requirement {} of {}:".format(selectedReqId,currentDegreeString));
+
 
                         elif resChoice==1:
                             print("input question of new requirement:");
