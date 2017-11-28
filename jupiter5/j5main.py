@@ -257,7 +257,30 @@ def degreeMode():
                     jupiter.update("degree","degree_name",currentDegree[0],degreeColumns[editChoice],newValue);
 
                 elif selectedDegreeChoice==1:
-                    pass;
+                    while 1:
+                        print("requirements of {}:".format(currentDegreeString));
+
+                        reqs=jupiter.getReqs(currentDegreeString);
+                        maxReqId=-1;
+                        for x in reqs:
+                            print(x);
+                            maxReqId=max(x[0],maxReqId);
+                        print();
+
+                        resChoice=menu(["select","add","return"]);
+
+                        if resChoice==0:
+                            pass;
+
+                        elif resChoice==1:
+                            print("input question of new requirement:");
+                            newReq=input(">");
+
+                            if jupiter.add("requirement",[maxReqId+1,currentDegreeString,newReq]):
+                                maxReqId+=1;
+
+                        elif resChoice==2:
+                            break;
 
                 elif selectedDegreeChoice==2:
                     pass;

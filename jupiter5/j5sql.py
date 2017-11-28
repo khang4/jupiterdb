@@ -10,6 +10,9 @@ class _jupiter:
     #give it table name to add to and array of arrays of values, it will add each
     #array in values as a seperate row
     def add(self,table,values):
+        if not isinstance(values[0],list):
+            values=[values];
+
         valuestring="";
         for iy,y in enumerate(values):
             valuestring+="(";
@@ -130,6 +133,15 @@ class _jupiter:
         try:
             self.cursor.execute('''select * from degree where degree_name="{}"'''.format(name));
             return self.cursor.fetchone();
+
+        except mysql.connector.Error as err:
+            print(err);
+            return 0;
+
+    def getReqs(self,name):
+        try:
+            self.cursor.execute('''select requirement_id,question from requirement where degree_name="{}"'''.format(name));
+            return self.cursor.fetchall();
 
         except mysql.connector.Error as err:
             print(err);
