@@ -157,7 +157,7 @@ def studentMode():
         print("gender: {}".format(currentStudent[8]));
         print("birthday: {}".format(str(currentStudent[9])));
 
-        choice=menu(["edit","phone numbers","applications","return"]);
+        choice=menu(["edit","phone numbers","applications","delete","return"]);
 
         if choice==0:
             print("select field to edit:");
@@ -207,6 +207,11 @@ def studentMode():
             pass;
 
         elif choice==3:
+            jupiter.delRow("applicants","student_id",currentStudent[0]);
+            print("deleting selected student...");
+            return;
+
+        elif choice==4:
             return;
 
 def degreeMode():
