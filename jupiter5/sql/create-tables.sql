@@ -45,11 +45,11 @@ create table if not exists jupiter.requirement
     degree_name varchar(30) not null,
     question varchar(180),
 
-    primary key (requirement_id,degree_name),
+    primary key (requirement_id),
     foreign key (degree_name) references jupiter.degree (degree_name) on delete cascade
 );
 
-create table if not exists jupiter.answers
+create table if not exists jupiter.answer
 (
     answer_id int not null,
     requirement_id int not null,

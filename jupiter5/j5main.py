@@ -282,13 +282,11 @@ def degreeMode():
 
 def reqMode(currentDegreeString):
     while 1:
-        print("requirements of {}:".format(currentDegreeString));
+        print("requirements of degree {}:".format(currentDegreeString));
 
         reqs=jupiter.getReqs(currentDegreeString);
-        maxReqId=-1;
         for x in reqs:
             print("{}: {}".format(x[0],x[1]));
-            maxReqId=max(x[0],maxReqId);
         print();
 
         resChoice=menu(["select","add","return"]);
@@ -298,7 +296,7 @@ def reqMode(currentDegreeString):
             selectedReqId=int(input(">"));
 
             while 1:
-                print("answers of requirement {} of {}:".format(selectedReqId,currentDegreeString));
+                print("answers of requirement id {} of degree {}:".format(selectedReqId,currentDegreeString));
                 answers=jupiter.getAnswers(selectedReqId);
 
                 maxAnswerId=-1;
@@ -313,13 +311,13 @@ def reqMode(currentDegreeString):
                     print("input new answer:");
                     newAnswer=input(">");
 
-                    if jupiter.add("answers",[maxAnswerId+1,selectedReqId,newAnswer]):
+                    if jupiter.add("answer",[maxAnswerId+1,selectedReqId,newAnswer]):
                         maxAnswerId+=1;
 
                 elif answerChoice==1:
                     print("input answer id to remove:");
                     removeAnswer=int(input(">"));
-                    jupiter.delRow("answers",["answer_id","requirement_id"],[removeAnswer,selectedReqId]);
+                    jupiter.delRow("answer",["answer_id","requirement_id"],[removeAnswer,selectedReqId]);
 
                 elif answerChoice==2:
                     jupiter.delRow("requirement",["requirement_id","degree_name"],[selectedReqId,currentDegreeString]);
@@ -332,8 +330,8 @@ def reqMode(currentDegreeString):
             print("input question of new requirement:");
             newReq=input(">");
 
-            if jupiter.add("requirement",[maxReqId+1,currentDegreeString,newReq]):
-                maxReqId+=1;
+            if jupiter.add("requirement",[j5const.tableMaxKeys["requirement"]+1,currentDegreeString,newReq]):
+                j5const.tableMaxKeys["requirement"]+=1;
 
         elif resChoice==2:
             break;

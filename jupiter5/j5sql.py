@@ -150,7 +150,7 @@ class _jupiter:
     #give requirement id, get array of answers
     def getAnswers(self,reqId):
         try:
-            self.cursor.execute('''select answer_id,answer from answers where requirement_id="{}"'''.format(reqId));
+            self.cursor.execute('''select answer_id,answer from answer where requirement_id="{}"'''.format(reqId));
             return self.cursor.fetchall();
 
         except mysql.connector.Error as err:

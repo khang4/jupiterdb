@@ -7,5 +7,6 @@ tableinfo=[
 ];
 
 tableMaxKeys={
-    "applicants":jupiter.getLastId("applicants","student_id")
+    "applicants":jupiter.getLastId("applicants","student_id"),
+    "requirement":jupiter.getLastId("requirement","requirement_id")
 };
