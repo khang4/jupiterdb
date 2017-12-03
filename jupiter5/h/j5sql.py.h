@@ -21,6 +21,7 @@ class jupiter
     array getPhones(int id);
     array getDegree(string name);
     array getReqs(string name);
+    array getAnswers(int reqId);
 }
 
 /*-- utility --*/

@@ -257,35 +257,7 @@ def degreeMode():
                     jupiter.update("degree","degree_name",currentDegree[0],degreeColumns[editChoice],newValue);
 
                 elif selectedDegreeChoice==1:
-                    while 1:
-                        print("requirements of {}:".format(currentDegreeString));
-
-                        reqs=jupiter.getReqs(currentDegreeString);
-                        maxReqId=-1;
-                        for x in reqs:
-                            print(x);
-                            maxReqId=max(x[0],maxReqId);
-                        print();
-
-                        resChoice=menu(["select","add","return"]);
-
-                        if resChoice==0:
-                            print("enter id of requirement to select:");
-                            selectedReqId=int(input(">"));
-
-                            while 1:
-                                print("answers of requirement {} of {}:".format(selectedReqId,currentDegreeString));
-
-
-                        elif resChoice==1:
-                            print("input question of new requirement:");
-                            newReq=input(">");
-
-                            if jupiter.add("requirement",[maxReqId+1,currentDegreeString,newReq]):
-                                maxReqId+=1;
-
-                        elif resChoice==2:
-                            break;
+                    reqMode(currentDegreeString);
 
                 elif selectedDegreeChoice==2:
                     pass;
@@ -307,6 +279,64 @@ def degreeMode():
 
         elif choice==2:
             return;
+
+def reqMode(currentDegreeString):
+    while 1:
+        print("requirements of {}:".format(currentDegreeString));
+
+        reqs=jupiter.getReqs(currentDegreeString);
+        maxReqId=-1;
+        for x in reqs:
+            print("{}: {}".format(x[0],x[1]));
+            maxReqId=max(x[0],maxReqId);
+        print();
+
+        resChoice=menu(["select","add","return"]);
+
+        if resChoice==0:
+            print("enter id of requirement to select:");
+            selectedReqId=int(input(">"));
+
+            while 1:
+                print("answers of requirement {} of {}:".format(selectedReqId,currentDegreeString));
+                answers=jupiter.getAnswers(selectedReqId);
+
+                maxAnswerId=-1;
+                for x in answers:
+                    print("{}: {}".format(x[0],x[1]));
+                    maxAnswerId=max(maxAnswerId,x[0]);
+                print();
+
+                answerChoice=menu(["add answer","delete answer","delete current requirement","return"]);
+
+                if answerChoice==0:
+                    print("input new answer:");
+                    newAnswer=input(">");
+
+                    if jupiter.add("answers",[maxAnswerId+1,selectedReqId,newAnswer]):
+                        maxAnswerId+=1;
+
+                elif answerChoice==1:
+                    print("input answer id to remove:");
+                    removeAnswer=int(input(">"));
+                    jupiter.delRow("answers",["answer_id","requirement_id"],[removeAnswer,selectedReqId]);
+
+                elif answerChoice==2:
+                    jupiter.delRow("requirement",["requirement_id","degree_name"],[selectedReqId,currentDegreeString]);
+                    break;
+
+                elif answerChoice==3:
+                    break;
+
+        elif resChoice==1:
+            print("input question of new requirement:");
+            newReq=input(">");
+
+            if jupiter.add("requirement",[maxReqId+1,currentDegreeString,newReq]):
+                maxReqId+=1;
+
+        elif resChoice==2:
+            break;
 
 if __name__=="__main__":
     main();
