@@ -285,18 +285,22 @@ def reqMode(currentDegreeString):
         print("requirements of degree {}:".format(currentDegreeString));
 
         reqs=jupiter.getReqs(currentDegreeString);
-        for x in reqs:
-            print("{}: {}".format(x[0],x[1]));
+        for ix,x in enumerate(reqs):
+            print("{}: {}".format(ix,x[1]));
         print();
 
         resChoice=menu(["select","add","return"]);
 
         if resChoice==0:
             print("enter id of requirement to select:");
-            selectedReqId=int(input(">"));
+            selectedReqIndex=int(input(">"));
+
+            currentRequirementText=reqs[selectedReqIndex];
+            selectedReqId=currentRequirementText[0];
+            currentRequirementText=currentRequirementText[1];
 
             while 1:
-                print("answers of requirement id {} of degree {}:".format(selectedReqId,currentDegreeString));
+                print('''answers of "{}" of degree {}:'''.format(currentRequirementText,currentDegreeString));
                 answers=jupiter.getAnswers(selectedReqId);
 
                 maxAnswerId=-1;
@@ -305,7 +309,7 @@ def reqMode(currentDegreeString):
                     maxAnswerId=max(maxAnswerId,x[0]);
                 print();
 
-                answerChoice=menu(["add answer","delete answer","delete current requirement","return"]);
+                answerChoice=menu(["add answer","delete answer","delete current requirement","change current requirement question","return"]);
 
                 if answerChoice==0:
                     print("input new answer:");
@@ -324,6 +328,12 @@ def reqMode(currentDegreeString):
                     break;
 
                 elif answerChoice==3:
+                    print("input new question:");
+                    changedQuestion=input(">");
+                    jupiter.update("requirement","requirement_id",selectedReqId,"question",changedQuestion);
+                    currentRequirementText=changedQuestion;
+
+                elif answerChoice==4:
                     break;
 
         elif resChoice==1:
