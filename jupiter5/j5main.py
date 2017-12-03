@@ -260,7 +260,7 @@ def degreeMode():
                     reqMode(currentDegreeString);
 
                 elif selectedDegreeChoice==2:
-                    pass;
+                    rubricMode(currentDegreeString);
 
                 elif selectedDegreeChoice==3:
                     jupiter.delRow("degree","degree_name",currentDegree[0]);
@@ -335,6 +335,22 @@ def reqMode(currentDegreeString):
 
         elif resChoice==2:
             break;
+
+def rubricMode(currentDegreeString):
+    while 1:
+        print("rubric for degree {}".format(currentDegreeString));
+        print();
+
+        rubChoice=menu(["edit description","edit criteria","return"]);
+
+        if rubChoice==0:
+            pass;
+
+        elif rubChoice==1:
+            pass;
+
+        elif rubChoice==2:
+            return;
 
 if __name__=="__main__":
     main();

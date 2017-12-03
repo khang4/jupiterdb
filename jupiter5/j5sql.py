@@ -131,7 +131,7 @@ class _jupiter:
 
     def getDegree(self,name):
         try:
-            self.cursor.execute('''select * from degree where degree_name="{}"'''.format(name));
+            self.cursor.execute('''select degree_name,department,director,email,phone_number from degree where degree_name="{}"'''.format(name));
             return self.cursor.fetchone();
 
         except mysql.connector.Error as err:

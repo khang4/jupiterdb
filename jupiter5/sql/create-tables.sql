@@ -26,6 +26,8 @@ create table if not exists jupiter.degree
     email varchar(30),
     phone_number varchar(12),
 
+    rubric_document varchar(800),
+
     primary key (degree_name)
 );
 
@@ -57,4 +59,14 @@ create table if not exists jupiter.answer
 
     primary key (answer_id,requirement_id),
     foreign key (requirement_id) references jupiter.requirement (requirement_id) on delete cascade
+);
+
+create table if not exists jupiter.criteria
+(
+    criteria_name varchar(30) not null,
+    degree_name varchar(30) not null,
+    criteria_description varchar(150),
+
+    primary key (criteria_name,degree_name),
+    foreign key (degree_name) references jupiter.degree (degree_name) on delete cascade
 );
