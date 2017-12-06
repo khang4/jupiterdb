@@ -420,7 +420,8 @@ def selectedApplicationMode(appid):
             pass;
 
         elif selectChoice==4:
-            pass;
+            questions=jupiter.getReqs(currentApplication[0]);
+            print(questions);
 
         elif selectChoice==5:
             print("select field to edit:");

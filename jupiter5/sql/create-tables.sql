@@ -86,3 +86,16 @@ create table if not exists jupiter.application
     foreign key (degree_name) references jupiter.degree (degree_name) on delete cascade,
     foreign key (student_id) references jupiter.applicants (student_id) on delete cascade
 );
+
+create table if not exists jupiter.appAnswer
+(
+    application_id int not null,
+    requirement_id int not null,
+
+    answer varchar(100),
+
+    primary key (application_id,requirement_id),
+    foreign key (application_id) references jupiter.application (application_id) on delete cascade,
+    foreign key (requirement_id) references jupiter.requirement (requirement_id) on delete cascade
+
+);
