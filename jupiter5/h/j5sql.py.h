@@ -22,6 +22,8 @@ class jupiter
     array getDegree(string name);
     array getReqs(string name);
     array getAnswers(int reqId);
+    array getApplications(int student);
+    array getApplicationDetail(int appid);
 }
 
 /*-- utility --*/

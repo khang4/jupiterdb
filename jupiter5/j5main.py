@@ -210,7 +210,7 @@ def studentMode():
                     break;
 
         elif choice==2:
-            pass;
+            applicationMode(currentStudent[0],currentStudent[1],currentStudent[2]);
 
         elif choice==3:
             jupiter.delRow("applicants","student_id",currentStudent[0]);
@@ -360,6 +360,97 @@ def rubricMode(currentDegreeString):
             pass;
 
         elif rubChoice==2:
+            return;
+
+def applicationMode(studentId,firstName,lastName):
+    while 1:
+        print("applications for {}, {}:".format(lastName,firstName));
+
+        applications=jupiter.getApplications(studentId);
+
+        for ix,x in enumerate(applications):
+            print("{}: {},{},{}".format(ix,x[0],x[1],x[2]));
+
+        print();
+        appChoice=menu(["select","create","return"]);
+
+        if appChoice==0:
+            print("input number next to application to select it:");
+            appSelect=int(input(">"));
+
+            selectedApplicationMode(applications[appSelect][3]);
+
+        elif appChoice==1:
+            print("select degree for new application:");
+            degrees=jupiter.getDegrees();
+            createDegree=menu([x[0] for x in degrees]);
+
+            semesters=["spring","fall"];
+            print("select semester:");
+            createSemester=menu(semesters);
+
+            print("input year of application:");
+            createYear=int(input(">"));
+
+            if jupiter.add("application",[j5const.tableMaxKeys["application"]+1,
+                degrees[createDegree][0],studentId,"",semesters[createSemester],createYear]):
+                j5const.tableMaxKeys["application"]+=1;
+
+        elif appChoice==2:
+            return;
+
+def selectedApplicationMode(appid):
+    while 1:
+        currentApplication=jupiter.getApplicationDetail(appid);
+        print(currentApplication)
+
+        selectChoice=menu(["educations","GRE scores","essay",
+            "email","answers","edit details","delete this application","return"]);
+
+        if selectChoice==0:
+            pass;
+
+        elif selectChoice==1:
+            pass;
+
+        elif selectChoice==2:
+            pass;
+
+        elif selectChoice==3:
+            pass;
+
+        elif selectChoice==4:
+            pass;
+
+        elif selectChoice==5:
+            print("select field to edit:");
+            fields=["degree","semester","year"];
+            editChoice=menu(fields);
+
+            if editChoice==0:
+                print("select new degree:");
+                degrees=jupiter.getDegrees();
+                newDeg=degrees[menu([x[0] for x in degrees])];
+
+                jupiter.update("application","application_id",appid,"degree_name",newDeg);
+
+            elif editChoice==1:
+                print("select new semester:");
+                semesters=["spring","fall"];
+                newSem=semesters[menu(semesters)];
+
+                jupiter.update("application","application_id",appid,"semester",newSem);
+
+            elif editChoice==2:
+                print("input new year:");
+                newYear=int(input(">"));
+
+                jupiter.update("application","application_id",appid,"year",newYear);
+
+        elif selectChoice==6:
+            pass;
+
+        elif selectChoice==7:
             return;
 
 if __name__=="__main__":
