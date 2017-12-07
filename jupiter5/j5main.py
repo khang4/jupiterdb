@@ -506,7 +506,18 @@ def selectedApplicationMode(appid):
                             maxEmailId+=1;
 
                 elif emailChoice==1:
-                    pass;
+                    print("input email number to edit:");
+                    emailEditChoice=int(input(">"));
+
+                    print("select field to edit:");
+                    fieldChoice=menu(["referencer name","body"]);
+                    actualFields=["referencer","body"];
+
+                    print("enter new value:");
+                    newValue=input(">");
+
+                    jupiter.update("email",["email_id","application_id"],
+                        [emails[emailEditChoice][0],appid],actualFields[fieldChoice],newValue);
 
                 elif emailChoice==2:
                     print("select number next to email to delete:");
