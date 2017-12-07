@@ -114,3 +114,15 @@ create table if not exists jupiter.education
     primary key (education_id,application_id),
     foreign key (application_id) references jupiter.application (application_id) on delete cascade
 );
+
+create table if not exists jupiter.email
+(
+    email_id int not null,
+    application_id int not null,
+
+    referencer varchar(20),
+    body varchar(180),
+
+    primary key (email_id,application_id),
+    foreign key (application_id) references jupiter.application (application_id) on delete cascade
+);

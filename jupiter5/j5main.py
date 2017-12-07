@@ -481,7 +481,38 @@ def selectedApplicationMode(appid):
             pass;
 
         elif selectChoice==3:
-            pass;
+            while 1:
+                print();
+                print("reference emails of current application:");
+                emails=jupiter.getEmails(appid);
+
+                maxEmailId=-1;
+                for x in emails:
+                    print(x);
+                    maxEmailId=max(maxEmailId,x[0]);
+
+                emailChoice=menu(["add","edit","delete","return"]);
+
+                if emailChoice==0:
+                    if len(emails)>=3:
+                        print("maximum 3 email references. delete one and try again");
+
+                    else:
+                        print("adding new email reference:");
+                        emailValues=promptValues(["referencer name:","body:"]);
+                        emailValues.insert(0,appid);
+                        emailValues.insert(0,maxEmailId+1);
+                        if jupiter.add("email",emailValues):
+                            maxEmailId+=1;
+
+                elif emailChoice==1:
+                    pass;
+
+                elif emailChoice==2:
+                    pass;
+
+                elif emailChoice==3:
+                    break;
 
         elif selectChoice==4:
             questions=jupiter.getReqs(currentApplication[0]);
