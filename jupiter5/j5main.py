@@ -206,7 +206,7 @@ def studentMode():
                 if phonechoice==2:
                     print("select phone number to delete (input number next to phone number in list):");
                     phoneDeleteChoice=int(input(">"));
-                    jupiter.delRow("phone_number",["phone_number","student_id"],
+                    jupitewr.delRow("phone_number",["phone_number","student_id"],
                         [numbers[phoneDeleteChoice],currentStudent[0]]);
 
                 if phonechoice==3:
@@ -430,8 +430,8 @@ def selectedApplicationMode(appid):
                 educations=jupiter.getEducations(appid);
 
                 educationIdMax=-1;
-                for x in educations:
-                    print("{} in {} from {} with {} GPA, {}".format(x[3],x[2],x[1],x[5],x[4]));
+                for ix,x in enumerate(educations):
+                    print("{}: {} in {} from {} with {} GPA, {}".format(ix,x[3],x[2],x[1],x[5],x[4]));
                     educationIdMax=max(educationIdMax,x[0]);
                 print();
 
@@ -446,7 +446,24 @@ def selectedApplicationMode(appid):
                         educationIdMax+=1;
 
                 elif edChoice==1:
-                    pass;
+                    print("input number next to education to edit it:");
+                    editChoice=int(input(">"));
+                    print("select field to edit:");
+                    fieldChoice=menu(["college","major","degree type","graduation date","gpa"]);
+                    educationFields=["college","major","degree","grad_data","gpa"];
+
+                    print("input new value:");
+                    if fieldChoice==3:
+                        newValue=promptDate();
+
+                    elif fieldChoice==4:
+                        newValue=float(input(">"));
+
+                    else:
+                        newValue=input(">");
+
+                    jupiter.update("education",["education_id","application_id"],
+                        [educations[editChoice][0],appid],educationFields[fieldChoice],newValue);
 
                 elif edChoice==2:
                     pass;
