@@ -12,6 +12,7 @@ def main():
         #student mode selected
         if choice==0:
             while 1:
+                print();
                 print("students:");
                 displayApplicants();
                 print();
@@ -150,6 +151,7 @@ def studentMode():
         if not currentStudent:
             return;
 
+        print();
         print("selected student:");
         print("name: {},{}".format(currentStudent[2],currentStudent[1]));
         print("address: {}, {}, {}, {}".format(currentStudent[4],currentStudent[3],currentStudent[6],currentStudent[5]));
@@ -179,6 +181,7 @@ def studentMode():
 
         elif choice==1:
             while 1:
+                print();
                 print("{}, {}: phone numbers:".format(currentStudent[1],currentStudent[2]));
                 numbers=jupiter.getPhones(currentStudent[0]);
 
@@ -222,6 +225,7 @@ def studentMode():
 
 def degreeMode():
     while 1:
+        print();
         print("degrees:");
 
         degrees=jupiter.getDegrees();
@@ -238,6 +242,7 @@ def degreeMode():
             currentDegreeString=degrees[int(input(">"))];
 
             while 1:
+                print();
                 currentDegree=jupiter.getDegree(currentDegreeString);
                 print("degree selected:");
                 print("name: {}".format(currentDegree[0]));
@@ -246,7 +251,7 @@ def degreeMode():
                 print("email: {}".format(currentDegree[3]));
                 print("phone: {}".format(currentDegree[4]));
 
-                selectedDegreeChoice=menu(["edit","requirements","rubric","delete","return"]);
+                selectedDegreeChoice=menu(["edit","requirements (questions)","rubric","delete","return"]);
 
                 if selectedDegreeChoice==0:
                     print("select field to edit:");
@@ -254,7 +259,9 @@ def degreeMode():
                     degreeColumns=["degree_name","department","director","email","phone_number"];
                     print("new value:");
                     newValue=input(">");
-                    jupiter.update("degree","degree_name",currentDegree[0],degreeColumns[editChoice],newValue);
+                    if jupiter.update("degree","degree_name",currentDegree[0],degreeColumns[editChoice],newValue):
+                        if editChoice==0:
+                            currentDegreeString=newValue;
 
                 elif selectedDegreeChoice==1:
                     reqMode(currentDegreeString);
@@ -282,6 +289,7 @@ def degreeMode():
 
 def reqMode(currentDegreeString):
     while 1:
+        print();
         print("requirements of degree {}:".format(currentDegreeString));
 
         reqs=jupiter.getReqs(currentDegreeString);
@@ -300,6 +308,7 @@ def reqMode(currentDegreeString):
             currentRequirementText=currentRequirementText[1];
 
             while 1:
+                print();
                 print('''answers of "{}" of degree {}:'''.format(currentRequirementText,currentDegreeString));
                 answers=jupiter.getAnswers(selectedReqId);
 
@@ -348,6 +357,7 @@ def reqMode(currentDegreeString):
 
 def rubricMode(currentDegreeString):
     while 1:
+        print();
         print("rubric for degree {}".format(currentDegreeString));
         print();
 
@@ -364,6 +374,7 @@ def rubricMode(currentDegreeString):
 
 def applicationMode(studentId,firstName,lastName):
     while 1:
+        print();
         print("applications for {}, {}:".format(lastName,firstName));
 
         applications=jupiter.getApplications(studentId);
@@ -402,13 +413,19 @@ def applicationMode(studentId,firstName,lastName):
 def selectedApplicationMode(appid):
     while 1:
         currentApplication=jupiter.getApplicationDetail(appid);
-        print(currentApplication)
+        print();
+        print("current selected application:");
+        print("degree: {}".format(currentApplication[0]));
+        print("semester: {}".format(currentApplication[1]));
+        print("year: {}".format(currentApplication[2]));
+        print();
 
         selectChoice=menu(["educations","GRE scores","essay",
             "email","answers","edit details","delete this application","return"]);
 
         if selectChoice==0:
             while 1:
+                print();
                 print("educations of some application:");
                 educations=jupiter.getEducations(appid);
 
@@ -416,6 +433,7 @@ def selectedApplicationMode(appid):
                 for x in educations:
                     print("{} in {} from {} with {} GPA, {}".format(x[3],x[2],x[1],x[5],x[4]));
                     educationIdMax=max(educationIdMax,x[0]);
+                print();
 
                 edChoice=menu(["add","edit","delete","return"]);
 
