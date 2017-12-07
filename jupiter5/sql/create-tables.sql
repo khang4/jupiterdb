@@ -99,3 +99,18 @@ create table if not exists jupiter.appAnswer
     foreign key (requirement_id) references jupiter.requirement (requirement_id) on delete cascade
 
 );
+
+create table if not exists jupiter.education
+(
+    education_id int not null,
+    application_id int not null,
+
+    college varchar(20),
+    major varchar(15),
+    degree char(2),
+    grad_date date,
+    gpa float,
+
+    primary key (education_id,application_id),
+    foreign key (application_id) references jupiter.application (application_id) on delete cascade
+);

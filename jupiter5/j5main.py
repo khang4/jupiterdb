@@ -408,7 +408,33 @@ def selectedApplicationMode(appid):
             "email","answers","edit details","delete this application","return"]);
 
         if selectChoice==0:
-            pass;
+            while 1:
+                print("educations of some application:");
+                educations=jupiter.getEducations(appid);
+
+                educationIdMax=-1;
+                for x in educations:
+                    print("{} in {} from {} with {} GPA, {}".format(x[3],x[2],x[1],x[5],x[4]));
+                    educationIdMax=max(educationIdMax,x[0]);
+
+                edChoice=menu(["add","edit","delete","return"]);
+
+                if edChoice==0:
+                    print("adding education:");
+                    newEd=promptValues(["college:","major:","degree (BS,BA,MS,MA):",["date","graduation date:"],"gpa"]);
+
+                    if jupiter.add("education",[educationIdMax+1,appid,newEd[0],newEd[1],
+                        newEd[2],newEd[3],newEd[4]]):
+                        educationIdMax+=1;
+
+                elif edChoice==1:
+                    pass;
+
+                elif edChoice==2:
+                    pass;
+
+                elif edChoice==3:
+                    break;
 
         elif selectChoice==1:
             pass;

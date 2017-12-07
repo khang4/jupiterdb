@@ -175,6 +175,15 @@ class _jupiter:
             print(err);
             return 0;
 
+    def getEducations(self,appid):
+        try:
+            self.cursor.execute('''select education_id,college,major,degree,grad_date,gpa from education where application_id="{}"'''.format(appid));
+            return self.cursor.fetchall();
+
+        except mysql.connector.Error as err:
+            print(err);
+            return 0;
+
 #assemble key names from array key to strings from ids with ANDS
 #useful for matching primary keys
 def genPrimaryWhere(key,id):
