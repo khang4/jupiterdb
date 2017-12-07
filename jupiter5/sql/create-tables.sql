@@ -126,3 +126,18 @@ create table if not exists jupiter.email
     primary key (email_id,application_id),
     foreign key (application_id) references jupiter.application (application_id) on delete cascade
 );
+
+create table if not exists jupiter.gre
+(
+    gre_id int not null,
+    application_id int not null,
+
+    verbal int,
+    quant int,
+    analytic float,
+
+    taken date,
+
+    primary key (gre_id,application_id),
+    foreign key (application_id) references jupiter.application (application_id) on delete cascade
+);

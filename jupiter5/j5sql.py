@@ -193,6 +193,15 @@ class _jupiter:
             print(err);
             return 0;
 
+    def getGres(self,appid):
+        try:
+            self.cursor.execute('''select gre_id,verbal,quant,analytic,taken from gre where application_id="{}"'''.format(appid));
+            return self.cursor.fetchall();
+
+        except mysql.connector.Error as err:
+            print(err);
+            return 0;
+
 #assemble key names from array key to strings from ids with ANDS
 #useful for matching primary keys
 def genPrimaryWhere(key,id):

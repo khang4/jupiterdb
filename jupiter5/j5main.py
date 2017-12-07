@@ -475,7 +475,8 @@ def selectedApplicationMode(appid):
                     break;
 
         elif selectChoice==1:
-            pass;
+            print("GRE scores for current application:");
+
 
         elif selectChoice==2:
             pass;
