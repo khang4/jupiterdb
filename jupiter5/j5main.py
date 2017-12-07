@@ -466,7 +466,10 @@ def selectedApplicationMode(appid):
                         [educations[editChoice][0],appid],educationFields[fieldChoice],newValue);
 
                 elif edChoice==2:
-                    pass;
+                    print("type number next to education to delete:");
+                    deleteChoice=int(input(">"));
+
+                    jupiter.delRow("education",["education_id","application_id"],[educations[deleteChoice][0],appid]);
 
                 elif edChoice==3:
                     break;
