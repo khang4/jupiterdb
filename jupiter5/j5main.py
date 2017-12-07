@@ -421,7 +421,7 @@ def selectedApplicationMode(appid):
         print();
 
         selectChoice=menu(["educations","GRE scores","essay",
-            "email","answers","edit details","delete this application","return"]);
+            "reference emails","answers","edit details","delete this application","return"]);
 
         if selectChoice==0:
             while 1:
@@ -487,8 +487,8 @@ def selectedApplicationMode(appid):
                 emails=jupiter.getEmails(appid);
 
                 maxEmailId=-1;
-                for x in emails:
-                    print(x);
+                for ix,x in enumerate(emails):
+                    print("email {}:\nfrom: {}\nbody: {}\n".format(ix,x[1],x[2]));
                     maxEmailId=max(maxEmailId,x[0]);
 
                 emailChoice=menu(["add","edit","delete","return"]);
@@ -509,7 +509,10 @@ def selectedApplicationMode(appid):
                     pass;
 
                 elif emailChoice==2:
-                    pass;
+                    print("select number next to email to delete:");
+                    deleteEmail=int(input(">"));
+
+                    jupiter.delRow("email",["email_id","application_id"],[emails[deleteEmail][0],appid]);
 
                 elif emailChoice==3:
                     break;
