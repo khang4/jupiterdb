@@ -475,8 +475,40 @@ def selectedApplicationMode(appid):
                     break;
 
         elif selectChoice==1:
-            print("GRE scores for current application:");
+            while 1:
+                print();
+                print("GRE scores for current application:");
+                gres=jupiter.getGres(appid);
 
+                greMaxId=-1;
+                for ix,x in enumerate(gres):
+                    print("gre test {}:\nverbal reasoning: {}\nquantitative reasoning: {}\nanalytical writing: {}\ndate taken: {}\n".format(ix,x[1],x[2],x[3],x[4]));
+                    greMaxId=max(greMaxId,x[0]);
+
+                greChoice=menu(["add","edit","delete","return"]);
+
+                if greChoice==0:
+                    print("adding new gre scores:");
+                    greValues=promptValues(["verbal reasoning score:","quantitative reasoning score:",
+                        "analytical writing score",["date","date taken:"]]);
+
+                    greValues.insert(0,appid);
+                    greValues.insert(0,greMaxId+1);
+
+                    if jupiter.add("gre",greValues):
+                        greMaxId+=1;
+
+                elif greChoice==1:
+                    pass;
+
+                elif greChoice==2:
+                    print("gre test number to delete:");
+                    deleteChoice=int(input(">"));
+
+                    jupiter.delRow("gre",["gre_id","application_id"],[gres[deleteChoice][0],appid]);
+
+                elif greChoice==3:
+                    break;
 
         elif selectChoice==2:
             pass;
