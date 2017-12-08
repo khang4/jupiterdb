@@ -490,7 +490,7 @@ def selectedApplicationMode(appid):
                 if greChoice==0:
                     print("adding new gre scores:");
                     greValues=promptValues(["verbal reasoning score:","quantitative reasoning score:",
-                        "analytical writing score",["date","date taken:"]]);
+                        "analytical writing score:",["date","date taken:"]]);
 
                     greValues.insert(0,appid);
                     greValues.insert(0,greMaxId+1);
@@ -499,7 +499,23 @@ def selectedApplicationMode(appid):
                         greMaxId+=1;
 
                 elif greChoice==1:
-                    pass;
+                    print("input number of test to edit:");
+                    greEdit=int(input(">"));
+
+                    print("choose field to edit:");
+                    fieldChoice=menu(["verbal reasoning score","quantitative reasoning score",
+                        "analytical writing score","date taken"]);
+                    actualFields=["verbal","quant","analytic","taken"];
+
+                    print("input new value:");
+                    if fieldChoice==3:
+                        newValue=promptDate();
+
+                    else:
+                        newValue=input(">");
+
+                    jupiter.update("gre",["gre_id","application_id"],[gres[greEdit][0],appid],
+                        actualFields[fieldChoice],newValue);
 
                 elif greChoice==2:
                     print("gre test number to delete:");
