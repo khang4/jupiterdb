@@ -95,6 +95,10 @@ create table if not exists jupiter.application
     semester char(6),
     year int,
 
+    decision varchar(20),
+    eval_date date,
+    decision_date date,
+
     primary key (application_id),
     foreign key (degree_name) references jupiter.degree (degree_name) on delete cascade,
     foreign key (student_id) references jupiter.applicants (student_id) on delete cascade
@@ -152,5 +156,17 @@ create table if not exists jupiter.gre
     taken date,
 
     primary key (gre_id,application_id),
+    foreign key (application_id) references jupiter.application (application_id) on delete cascade
+);
+
+create table if not exists jupiter.evaluation_score
+(
+    score_id int not null,
+    criteria_id int not null,
+    application_id int not null,
+
+    primary key (criteria_id,application_id),
+    foreign key (score_id) references jupiter.criteria_score (score_id) on delete cascade,
+    foreign key (criteria_id) references jupiter.criteria (criteria_id) on delete cascade,
     foreign key (application_id) references jupiter.application (application_id) on delete cascade
 );

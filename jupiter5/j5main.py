@@ -479,7 +479,7 @@ def applicationMode(studentId,firstName,lastName):
             createYear=int(input(">"));
 
             if jupiter.add("application",[j5const.tableMaxKeys["application"]+1,
-                degrees[createDegree][0],studentId,"",semesters[createSemester],createYear]):
+                degrees[createDegree][0],studentId,"",semesters[createSemester],createYear,"","",""]):
                 j5const.tableMaxKeys["application"]+=1;
 
         elif appChoice==2:

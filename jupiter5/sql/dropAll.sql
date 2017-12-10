@@ -1,3 +1,4 @@
+drop table jupiter.evaluation_score;
 drop table jupiter.gre;
 drop table jupiter.email;
 drop table jupiter.education;
