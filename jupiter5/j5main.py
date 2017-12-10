@@ -580,8 +580,30 @@ def selectedApplicationMode(appid):
                     break;
 
         elif selectChoice==4:
-            questions=jupiter.getReqs(currentApplication[0]);
-            print(questions);
+            while 1:
+                questionTuple=jupiter.getReqs(currentApplication[0]);
+                answers=jupiter.getAppAnswers(appid);
+
+                questions={};
+                for x in questionTuple:
+                    questions[x[0]]=x[1];
+
+                print(questions);
+                print(answers);
+
+                # for ix,x in enumerate(questions):
+                #     print("{}: ({}) {}".format());
+
+                answerChoice=menu(["add/edit answer to question","clear answer","return"]);
+
+                if answerChoice==0:
+                    pass;
+
+                elif answerChoice==1:
+                    pass;
+
+                elif answerChoice==2:
+                    break;
 
         elif selectChoice==5:
             print("select field to edit:");

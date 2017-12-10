@@ -26,6 +26,7 @@ class jupiter
     array getApplicationDetail(int appid);
     array getEducations(int appid);
     array getEmails(int appid);
+    object getAppAnswers(int appid);
 }
 
 /*-- utility --*/

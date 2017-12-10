@@ -202,6 +202,21 @@ class _jupiter:
             print(err);
             return 0;
 
+    #returns DICT of answers, key is REQUIREMENT ID of the answer, to match up with REQUIREMENT ID
+    def getAppAnswers(self,appid):
+        try:
+            self.cursor.execute('''select requirement_id,answer from appAnswer where application_id="{}"'''.format(appid));
+            answers=self.cursor.fetchall();
+            aObj={};
+            for x in answers:
+                aObj[x[0]]=x[1];
+
+            return aObj;
+
+        except mysql.connector.Error as err:
+            print(err);
+            return 0;
+
 #assemble key names from array key to strings from ids with ANDS
 #useful for matching primary keys
 def genPrimaryWhere(key,id):
