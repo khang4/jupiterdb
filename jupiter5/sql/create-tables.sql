@@ -26,7 +26,7 @@ create table if not exists jupiter.degree
     email varchar(30),
     phone_number varchar(12),
 
-    rubric_document varchar(800),
+    rubric_document varchar(1500),
 
     primary key (degree_name)
 );
@@ -45,7 +45,7 @@ create table if not exists jupiter.requirement
 (
     requirement_id int not null,
     degree_name varchar(30) not null,
-    question varchar(180),
+    question varchar(200),
 
     primary key (requirement_id),
     foreign key (degree_name) references jupiter.degree (degree_name) on delete cascade
@@ -55,7 +55,7 @@ create table if not exists jupiter.answer
 (
     answer_id int not null,
     requirement_id int not null,
-    answer varchar(280),
+    answer varchar(300),
 
     primary key (answer_id,requirement_id),
     foreign key (requirement_id) references jupiter.requirement (requirement_id) on delete cascade
@@ -65,7 +65,7 @@ create table if not exists jupiter.criteria
 (
     criteria_name varchar(30) not null,
     degree_name varchar(30) not null,
-    criteria_description varchar(150),
+    criteria_description varchar(800),
 
     primary key (criteria_name,degree_name),
     foreign key (degree_name) references jupiter.degree (degree_name) on delete cascade
@@ -77,7 +77,7 @@ create table if not exists jupiter.application
     degree_name varchar(30),
     student_id int not null,
 
-    essay varchar(1500),
+    essay varchar(2000),
 
     semester char(6),
     year int,
@@ -92,7 +92,7 @@ create table if not exists jupiter.appAnswer
     application_id int not null,
     requirement_id int not null,
 
-    answer varchar(100),
+    answer varchar(800),
 
     primary key (application_id,requirement_id),
     foreign key (application_id) references jupiter.application (application_id) on delete cascade,
@@ -106,7 +106,7 @@ create table if not exists jupiter.education
     application_id int not null,
 
     college varchar(20),
-    major varchar(15),
+    major varchar(20),
     degree char(2),
     grad_date date,
     gpa float,
@@ -121,7 +121,7 @@ create table if not exists jupiter.email
     application_id int not null,
 
     referencer varchar(20),
-    body varchar(180),
+    body varchar(2000),
 
     primary key (email_id,application_id),
     foreign key (application_id) references jupiter.application (application_id) on delete cascade

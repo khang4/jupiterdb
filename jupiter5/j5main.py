@@ -581,26 +581,40 @@ def selectedApplicationMode(appid):
 
         elif selectChoice==4:
             while 1:
-                questionTuple=jupiter.getReqs(currentApplication[0]);
+                print();
+                print("questions and answers of current application:");
+                questions=jupiter.getReqs(currentApplication[0]);
                 answers=jupiter.getAppAnswers(appid);
 
-                questions={};
-                for x in questionTuple:
-                    questions[x[0]]=x[1];
+                for ix,x in enumerate(questions):
+                    if x[0] in answers:
+                        answerString=answers[x[0]];
+                    else:
+                        answerString="<no answer>";
 
-                print(questions);
-                print(answers);
-
-                # for ix,x in enumerate(questions):
-                #     print("{}: ({}) {}".format());
+                    print("{}: {}\n   -> {}".format(ix,x[1],answerString));
+                print();
 
                 answerChoice=menu(["add/edit answer to question","clear answer","return"]);
 
                 if answerChoice==0:
-                    pass;
+                    print("choose question to answer:");
+                    questionChoice=int(input(">"));
+
+                    print("input answer:");
+                    newAnswer=input(">");
+
+                    if not questions[questionChoice][0] in answers:
+                        jupiter.add("appAnswer",[appid,questions[questionChoice][0],newAnswer]);
+                    else:
+                        jupiter.update("appAnswer",["application_id","requirement_id"],
+                            [appid,questions[questionChoice][0]],"answer",newAnswer);
 
                 elif answerChoice==1:
-                    pass;
+                    print("select question to clear answer:");
+                    questionChoice=int(input(">"));
+
+                    jupiter.delRow("appAnswer",["requirement_id","application_id"],[questions[questionChoice][0],appid]);
 
                 elif answerChoice==2:
                     break;
