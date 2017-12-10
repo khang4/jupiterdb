@@ -2,6 +2,7 @@ drop table jupiter.gre;
 drop table jupiter.email;
 drop table jupiter.education;
 drop table jupiter.appAnswer;
+drop table jupiter.criteria_score;
 drop table jupiter.criteria;
 drop table jupiter.answer;
 drop table jupiter.requirement;

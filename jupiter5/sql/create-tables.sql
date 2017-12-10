@@ -63,12 +63,25 @@ create table if not exists jupiter.answer
 
 create table if not exists jupiter.criteria
 (
-    criteria_name varchar(30) not null,
+    criteria_id int not null,
     degree_name varchar(30) not null,
-    criteria_description varchar(800),
 
-    primary key (criteria_name,degree_name),
+    criteria_text varchar(400),
+
+    primary key (criteria_id),
     foreign key (degree_name) references jupiter.degree (degree_name) on delete cascade
+);
+
+create table if not exists jupiter.criteria_score
+(
+    score_id int not null,
+    criteria_id int not null,
+
+    score_text varchar(80),
+    score_condition varchar(300),
+
+    primary key (score_id,criteria_id),
+    foreign key (criteria_id) references jupiter.criteria (criteria_id) on delete cascade
 );
 
 create table if not exists jupiter.application

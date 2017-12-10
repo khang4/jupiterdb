@@ -251,7 +251,7 @@ def degreeMode():
                 print("email: {}".format(currentDegree[3]));
                 print("phone: {}".format(currentDegree[4]));
 
-                selectedDegreeChoice=menu(["edit","requirements (questions)","rubric","delete","return"]);
+                selectedDegreeChoice=menu(["edit","requirements (questions)","rubric (criteria)","delete","return"]);
 
                 if selectedDegreeChoice==0:
                     print("select field to edit:");
@@ -360,16 +360,89 @@ def reqMode(currentDegreeString):
 def rubricMode(currentDegreeString):
     while 1:
         print();
-        print("rubric for degree {}".format(currentDegreeString));
+        print("rubric criteria for degree {}".format(currentDegreeString));
+
+        criteria=jupiter.getCriteria(currentDegreeString);
+
+        for ix,x in enumerate(criteria):
+            print("{}: {}".format(ix,x[1]));
+
         print();
 
-        rubChoice=menu(["edit description","edit criteria","return"]);
+        rubChoice=menu(["select criteria","add criteria","return"]);
 
         if rubChoice==0:
-            pass;
+            print("enter id of criteria to select:");
+            critChoice=int(input(">"));
+            currentCrit=list(criteria[critChoice]);
+
+            while 1:
+                print();
+                print('''criteria "{}" selected:'''.format(currentCrit[1]));
+                print("possible scores (score -> condition to get that score):");
+                scores=jupiter.getScores(currentCrit[0]);
+
+                maxScoreId=-1;
+                for ix,x in enumerate(scores):
+                    print("{}: {} -> {}".format(ix,x[1],x[2]));
+                    maxScoreId=max(maxScoreId,x[0]);
+                print();
+
+                critChoice=menu(["add score","edit score","delete score","edit criteria description","delete current criteria","return"]);
+
+                if critChoice==0:
+                    print("input score description:");
+                    scoreText=input(">");
+
+                    print("input score condition description:");
+                    scoreDesc=input(">");
+
+                    if jupiter.add("criteria_score",[maxScoreId+1,currentCrit[0],scoreText,scoreDesc]):
+                        maxScoreId+=1;
+
+                elif critChoice==1:
+                    print("enter number of score to edit:");
+                    scoreEditChoice=int(input(">"));
+
+                    print("choose field to edit:");
+                    fieldChoice=menu(["score description","score condition"]);
+                    actualFields=["score_text","score_condition"];
+
+                    print("enter new value:");
+                    newValue=input(">");
+
+                    jupiter.update("criteria_score",["score_id","criteria_id"],[scores[scoreEditChoice][0],currentCrit[0]],
+                        actualFields[fieldChoice],newValue);
+
+                elif critChoice==2:
+                    print("input number next to a score to delete it:");
+                    deleteScore=int(input(">"));
+
+                    jupiter.delRow("criteria_score",["score_id","criteria_id"],[scores[deleteScore][0],currentCrit[0]]);
+
+                elif critChoice==3:
+                    print("enter new criteria information:");
+                    newCritInfo=input(">");
+
+                    jupiter.update("criteria","criteria_id",currentCrit[0],"criteria_text",newCritInfo);
+                    currentCrit[1]=newCritInfo;
+
+                elif critChoice==4:
+                    print("type y to delete the current criteria and all of its scores!!");
+                    confirm=input(">");
+                    if confirm=="y":
+                        jupiter.delRow("criteria","criteria_id",currentCrit[0]);
+                        break;
+
+                elif critChoice==5:
+                    break;
 
         elif rubChoice==1:
-            pass;
+            print("input criteria information:");
+            newCrit=input(">");
+
+            if jupiter.add("criteria",[j5const.tableMaxKeys["criteria"]+1,currentDegreeString,newCrit]):
+                j5const.tableMaxKeys["criteria"]+=1;
 
         elif rubChoice==2:
             return;
