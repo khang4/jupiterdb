@@ -282,6 +282,8 @@ def degreeMode():
             newDegree=promptValues(["degree name: ","department: ","director: ","email: ",
                 "phone: "]);
 
+            newDegree.append("");
+
             jupiter.add("degree",[newDegree]);
 
         elif choice==2:
