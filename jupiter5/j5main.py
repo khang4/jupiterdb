@@ -602,7 +602,22 @@ def selectedApplicationMode(appid):
                     break;
 
         elif selectChoice==2:
-            pass;
+            while 1:
+                print();
+                print("essay of current application:");
+                print(jupiter.getEssay(appid));
+                print();
+
+                essayAction=menu(["edit essay","return"]);
+
+                if essayAction==0:
+                    print("enter essay:");
+                    newEssay=input(">");
+
+                    jupiter.update("application","application_id",appid,"essay",newEssay);
+
+                elif essayAction==1:
+                    break;
 
         elif selectChoice==3:
             while 1:

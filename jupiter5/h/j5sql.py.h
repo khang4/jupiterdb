@@ -29,6 +29,7 @@ class jupiter
     object getAppAnswers(int appid);
     array getCriteria(string degreeName);
     array getScores(int critId);
+    string getEssay(int appid);
 }
 
 /*-- utility --*/
