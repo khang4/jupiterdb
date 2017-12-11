@@ -755,7 +755,7 @@ def selectedApplicationMode(appid):
 
                     print("input new value:");
                     if fieldChoice==0:
-                        newValue=decisionValues[menu(["accpeted","rejected","clear"])];
+                        newValue=decisionValues[menu(["accepted","rejected","clear"])];
 
                     else:
                         newValue=promptDate();
@@ -791,7 +791,6 @@ def selectedApplicationMode(appid):
                     print("choose action to do with evaluators:");
 
                     evaluatorChoice=menu(["add","delete","return"]);
-
 
                     if evaluatorChoice==0:
                         print("enter name of new evaluator:");

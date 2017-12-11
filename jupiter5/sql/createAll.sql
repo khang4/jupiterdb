@@ -120,8 +120,8 @@ create table if not exists jupiter.education
     education_id int not null,
     application_id int not null,
 
-    college varchar(20),
-    major varchar(20),
+    college varchar(50),
+    major varchar(50),
     degree char(2),
     grad_date date,
     gpa float,
