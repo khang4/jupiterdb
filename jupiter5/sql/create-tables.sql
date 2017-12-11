@@ -95,7 +95,7 @@ create table if not exists jupiter.application
     semester char(6),
     year int,
 
-    decision varchar(20),
+    decision char(10),
     eval_date date,
     decision_date date,
 

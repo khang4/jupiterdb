@@ -479,7 +479,7 @@ def applicationMode(studentId,firstName,lastName):
             createYear=int(input(">"));
 
             if jupiter.add("application",[j5const.tableMaxKeys["application"]+1,
-                degrees[createDegree][0],studentId,"",semesters[createSemester],createYear,"","",""]):
+                degrees[createDegree][0],studentId,"",semesters[createSemester],createYear,"","2012-01-01","2012-01-01"]):
                 j5const.tableMaxKeys["application"]+=1;
 
         elif appChoice==2:
@@ -496,12 +496,13 @@ def selectedApplicationMode(appid):
         print();
 
         selectChoice=menu(["educations","GRE scores","essay",
-            "reference emails","answers","edit details","delete this application","return"]);
+            "reference emails","application answers","application evaluation details","edit details",
+            "delete this application","return"]);
 
         if selectChoice==0:
             while 1:
                 print();
-                print("educations of some application:");
+                print("educations of current application:");
                 educations=jupiter.getEducations(appid);
 
                 educationIdMax=-1;
@@ -708,6 +709,73 @@ def selectedApplicationMode(appid):
                     break;
 
         elif selectChoice==5:
+            criteria=jupiter.getCriteria(currentApplication[0]);
+
+            while 1:
+                print();
+                evalDetail=jupiter.getEvalDetails(appid);
+                evalScores=jupiter.getAppScores(appid);
+                print("evaluation details of current application:");
+                print("decision: {}\nevaluation creation date: {}\nevaluation decision date: {}".format(evalDetail[0],evalDetail[1],evalDetail[2]));
+
+                print();
+                print("criteria scores for current evaluation:");
+                for ix,x in enumerate(criteria):
+                    print("{}: {}".format(ix,x[1]));
+                    if x[0] in evalScores:
+                        print("   -> {}".format(evalScores[x[0]][2]));
+                    else:
+                        print("   -> <no score>");
+
+                print();
+                evalChoice=menu(["edit evaluation details","add/edit a score","edit evaluators","return"]);
+
+                if evalChoice==0:
+                    print("choose field to edit:");
+                    decisionValues=["accepted","rejected",""];
+                    fieldChoice=menu(["decision","evaluation creation date","decision date"]);
+                    actualFields=["decision","eval_date","decision_date"];
+
+                    print("input new value:");
+                    if fieldChoice==0:
+                        newValue=decisionValues[menu(["accpeted","rejected","clear"])];
+
+                    else:
+                        newValue=promptDate();
+
+                    jupiter.update("application","application_id",appid,actualFields[fieldChoice],newValue);
+
+                elif evalChoice==1:
+                    print("select criteria to score (type the number to the left of the criteria in the menu above):");
+                    critSelect=int(input(">"));
+                    possiblescoresGet=jupiter.getScores(criteria[critSelect][0]);
+                    possiblescores=["{} -> {}".format(x[1],x[2]) for x in possiblescoresGet];
+
+                    if not len(possiblescores):
+                        print("this criteria has no scores yet");
+
+                    else:
+                        possiblescores.append("clear score");
+                        print("select a score to give:");
+                        scoreSelect=menu(possiblescores);
+
+                        if scoreSelect==len(possiblescores)-1:
+                            jupiter.delRow("evaluation_score",["criteria_id","application_id"],[criteria[critSelect][0],appid]);
+
+                        else:
+                            if criteria[critSelect][0] not in evalScores:
+                                jupiter.add("evaluation_score",[possiblescoresGet[scoreSelect][0],criteria[critSelect][0],appid]);
+                            else:
+                                jupiter.update("evaluation_score",["criteria_id","application_id"],[criteria[critSelect][0],
+                                    appid],"score_id",possiblescoresGet[scoreSelect][0]);
+
+                elif evalChoice==2:
+                    pass;
+
+                elif evalChoice==3:
+                    break;
+
+        elif selectChoice==6:
             print("select field to edit:");
             fields=["degree","semester","year"];
             editChoice=menu(fields);
@@ -732,10 +800,10 @@ def selectedApplicationMode(appid):
 
                 jupiter.update("application","application_id",appid,"year",newYear);
 
-        elif selectChoice==6:
+        elif selectChoice==7:
             pass;
 
-        elif selectChoice==7:
+        elif selectChoice==8:
             return;
 
 if __name__=="__main__":

@@ -28,8 +28,9 @@ class jupiter
     array getEmails(int appid);
     object getAppAnswers(int appid);
     array getCriteria(string degreeName);
-    array getScores(int critId);
+    array getScores(int critId); //get all possible scores for a criteria (NOT actual scores)
     string getEssay(int appid);
+    array getAppScores(int appid);
 }
 
 /*-- utility --*/

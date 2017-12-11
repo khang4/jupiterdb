@@ -244,6 +244,28 @@ class _jupiter:
             print(err);
             return 0;
 
+    def getEvalDetails(self,appid):
+        try:
+            self.cursor.execute('''select decision,eval_date,decision_date from application where application_id="{}"'''.format(appid));
+            return self.cursor.fetchone();
+
+        except mysql.connector.Error as err:
+            print(err);
+            return 0;
+
+    def getAppScores(self,appid):
+        try:
+            self.cursor.execute('''select evaluation_score.criteria_id,evaluation_score.score_id,score_text from evaluation_score,criteria_score where application_id="{}" and evaluation_score.score_id=criteria_score.score_id and evaluation_score.criteria_id=criteria_score.criteria_id'''.format(appid));
+            scores=self.cursor.fetchall();
+            res={};
+            for x in scores:
+                res[x[0]]=x;
+            return res;
+
+        except mysql.connector.Error as err:
+            print(err);
+            return 0;
+
 #assemble key names from array key to strings from ids with ANDS
 #useful for matching primary keys
 def genPrimaryWhere(key,id):
