@@ -477,7 +477,8 @@ def applicationMode(studentId,firstName,lastName):
             createYear=int(input(">"));
 
             if jupiter.add("application",[j5const.tableMaxKeys["application"]+1,
-                degrees[createDegree][0],studentId,"",semesters[createSemester],createYear,"","2012-01-01","2012-01-01"]):
+                degrees[createDegree][0],studentId,"",semesters[createSemester],createYear,
+                "","1990-01-01","1990-01-01"]):
                 j5const.tableMaxKeys["application"]+=1;
 
         elif appChoice==2:
@@ -711,9 +712,16 @@ def selectedApplicationMode(appid):
 
             while 1:
                 print();
-                evalDetail=jupiter.getEvalDetails(appid);
+                evalDetail=list(jupiter.getEvalDetails(appid));
                 evalScores=jupiter.getAppScores(appid);
                 print("evaluation details of current application:");
+
+                if evalDetail[1].year<2000:
+                    evalDetail[1]=""
+
+                if evalDetail[2].year<2000:
+                    evalDetail[2]=""
+
                 print("decision: {}\nevaluation creation date: {}\nevaluation decision date: {}".format(evalDetail[0],evalDetail[1],evalDetail[2]));
 
                 print();

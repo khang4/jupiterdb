@@ -1,4 +1,5 @@
 unlock tables;
+drop table if exists jupiter.evaluator;
 drop table if exists jupiter.evaluation_score;
 drop table if exists jupiter.gre;
 drop table if exists jupiter.email;
