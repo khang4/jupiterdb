@@ -51,7 +51,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `application` WRITE;
 /*!40000 ALTER TABLE `application` DISABLE KEYS */;
-INSERT INTO `application` VALUES (1,'whale studies',1,'sdfh89ashfsuaidhfuisdafh usdahfiudhfgui sdfgudfiguidfguihdfgh soidfhodsf gsd fgdiof gjpoidfhd fgio jhdfio hiodf gjhiodf jhodi gjhiodf ghoidf jhiodf hio dfgiohdfoigh dfgh df gh dfiog jhoidfpgjhdofpi gh dfg h fgiohjior gij iortj gdfggh d  dfigjh dopfi ghdfgjhiodf g','spring',2019,'rejected','2017-05-07','2017-06-04'),(2,'paper',2,'','fall',2018,'','2012-01-01','2012-01-01');
+INSERT INTO `application` VALUES (1,'whale studies',1,'sdfh89ashfsuaidhfuisdafh usdahfiudhfgui sdfgudfiguidfguihdfgh soidfhodsf gsd fgdiof gjpoidfhd fgio jhdfio hiodf gjhiodf jhodi gjhiodf ghoidf jhiodf hio dfgiohdfoigh dfgh df gh dfiog jhoidfpgjhdofpi gh dfg h fgiohjior gij iortj gdfggh d  dfigjh dopfi ghdfgjhiodf g','spring',2019,'rejected','2017-05-07','2017-06-04'),(2,'paper',2,'','fall',2018,'','2012-01-01','2012-01-01'),(3,'skytology',3,'','spring',2018,'','2018-02-06','1990-01-01');
 /*!40000 ALTER TABLE `application` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,17 +61,17 @@ UNLOCK TABLES;
 
 LOCK TABLES `criteria` WRITE;
 /*!40000 ALTER TABLE `criteria` DISABLE KEYS */;
-INSERT INTO `criteria` VALUES (1,'whale studies','like blue'),(2,'whale studies','distaste for chicken nuggets'),(3,'paper','computer usage'),(4,'paper','amount of paper owned');
+INSERT INTO `criteria` VALUES (1,'whale studies','like blue'),(2,'whale studies','distaste for chicken nuggets'),(3,'paper','computer usage'),(4,'paper','amount of paper owned'),(5,'paper','statement of purpose'),(6,'paper','fear of fire');
 /*!40000 ALTER TABLE `criteria` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Dumping data applicationfor table `criteria_score`
+-- Dumping data for table `criteria_score`
 --
 
 LOCK TABLES `criteria_score` WRITE;
 /*!40000 ALTER TABLE `criteria_score` DISABLE KEYS */;
-INSERT INTO `criteria_score` VALUES (0,2,'a god amonst men','has destroyed over five hundred chicken nugget manufacturing installations'),(0,3,'acceptable','once a week'),(0,4,'very good','enough to fill three rooms'),(1,2,'very good','has despised nuggets since before they were born'),(1,3,'very good','doesn\'t own one'),(1,4,'acceptable','enough to drown in'),(2,2,'very good','participated in the protest against the invention of nuggets'),(2,3,'terrible','greater than three times a week'),(2,4,'poor','enough that a fire could start using a match'),(3,2,'poor','has entered and tolerated the prescence of a nugget for >4 minutes'),(3,4,'slightly better than poor','enough that a fire could start, without a match or firestarting device'),(4,2,'very very poor','has consumed a chicken nugget'),(5,2,'immediately dismiss this applicant','has consumed greater than one chicken nugget'),(8,2,'acceptable','has heard of chicken nuggets, but does not yet know their significance to the field of whale studies');
+INSERT INTO `criteria_score` VALUES (0,1,'very good','the applicant is blue'),(0,2,'a god amonst men','has destroyed over five hundred chicken nugget manufacturing installations'),(0,3,'acceptable','once a week'),(0,4,'very good','enough to fill three rooms'),(0,5,'excellent','was written on paper, using paper text'),(0,6,'excellent','dies should fire come within range of 50 metres, or come into line of sight, plus 30 degrees'),(1,1,'substandard','the applicant can imagine blue'),(1,2,'very good','has despised nuggets since before they were born'),(1,3,'very good','doesn\'t own one'),(1,4,'acceptable','enough to drown in'),(1,5,'unimpressive','is on paper, using ink'),(1,6,'terrible','is able to remain unscathed even while within a 10 metre radius of an open flame'),(2,1,'decent','the applicant bleeds blue'),(2,2,'very good','participated in the protest against the invention of nuggets'),(2,3,'terrible','greater than three times a week'),(2,4,'poor','enough that a fire could start using a match'),(2,5,'failure','included some electronic process in the creation of'),(2,6,'acceptable','is able to remain unscathed within 20 metres of an open flame, but is unharmed by line of sight'),(3,1,'slightly less than decent','the applicant bleeds and turns blue, but only under low oxygen or temperature conditions'),(3,2,'poor','has entered and tolerated the prescence of a nugget for >4 minutes'),(3,4,'slightly better than poor','enough that a fire could start, without a match or firestarting device'),(3,5,'requires additional investigation','was sent telepathically'),(4,1,'optimal','the applicant must consume blue to survive'),(4,2,'very very poor','has consumed a chicken nugget'),(5,2,'immediately dismiss this applicant','has consumed greater than one chicken nugget'),(8,2,'acceptable','has heard of chicken nuggets, but does not yet know their significance to the field of whale studies');
 /*!40000 ALTER TABLE `criteria_score` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,8 +111,18 @@ UNLOCK TABLES;
 
 LOCK TABLES `evaluation_score` WRITE;
 /*!40000 ALTER TABLE `evaluation_score` DISABLE KEYS */;
-INSERT INTO `evaluation_score` VALUES (1,3,2),(1,4,2),(5,2,1);
+INSERT INTO `evaluation_score` VALUES (1,3,2),(1,4,2),(1,5,2),(2,6,2),(5,2,1);
 /*!40000 ALTER TABLE `evaluation_score` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `evaluator`
+--
+
+LOCK TABLES `evaluator` WRITE;
+/*!40000 ALTER TABLE `evaluator` DISABLE KEYS */;
+INSERT INTO `evaluator` VALUES (0,3,'dr. bob'),(1,3,'jimbo bob'),(2,3,'sdfasfasdfewaf'),(3,3,'wefoiuhf97awhfawer');
+/*!40000 ALTER TABLE `evaluator` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -153,4 +163,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-10 22:34:01
+-- Dump completed on 2017-12-11 12:40:18

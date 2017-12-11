@@ -1,0 +1,429 @@
+-- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: jupiter
+-- ------------------------------------------------------
+-- Server version	5.7.20
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `answer`
+--
+
+DROP TABLE IF EXISTS `answer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `answer` (
+  `answer_id` int(11) NOT NULL,
+  `requirement_id` int(11) NOT NULL,
+  `answer` varchar(300) DEFAULT NULL,
+  PRIMARY KEY (`answer_id`,`requirement_id`),
+  KEY `requirement_id` (`requirement_id`),
+  CONSTRAINT `answer_ibfk_1` FOREIGN KEY (`requirement_id`) REFERENCES `requirement` (`requirement_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `answer`
+--
+
+LOCK TABLES `answer` WRITE;
+/*!40000 ALTER TABLE `answer` DISABLE KEYS */;
+INSERT INTO `answer` VALUES (0,1,'fish'),(0,2,'teal'),(0,3,'sea'),(0,4,'something philosophical'),(0,5,'we are the ground'),(0,6,'we are the earth'),(0,7,'yes'),(0,8,'no'),(0,9,'potentially'),(1,1,'dolphines'),(1,2,'white'),(1,3,'trees'),(1,4,'a poem'),(1,6,'we are not the earth'),(1,7,'but of course'),(1,8,'are you mad??'),(1,9,'it\'s possible'),(2,1,'rivers'),(2,7,'why not'),(2,8,'monster!'),(2,9,'let me stop to consider'),(3,9,'give me more time to consider');
+/*!40000 ALTER TABLE `answer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `appanswer`
+--
+
+DROP TABLE IF EXISTS `appanswer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `appanswer` (
+  `application_id` int(11) NOT NULL,
+  `requirement_id` int(11) NOT NULL,
+  `answer` varchar(800) DEFAULT NULL,
+  PRIMARY KEY (`application_id`,`requirement_id`),
+  KEY `requirement_id` (`requirement_id`),
+  CONSTRAINT `appanswer_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `application` (`application_id`) ON DELETE CASCADE,
+  CONSTRAINT `appanswer_ibfk_2` FOREIGN KEY (`requirement_id`) REFERENCES `requirement` (`requirement_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `appanswer`
+--
+
+LOCK TABLES `appanswer` WRITE;
+/*!40000 ALTER TABLE `appanswer` DISABLE KEYS */;
+INSERT INTO `appanswer` VALUES (1,1,'im not really sure, that\'s why i\'m studying whales, right? this answer should be good enough'),(1,3,'if i believe so, on this very earth?  if you would like me to elaborate, please contact me in a few days, i will be away for a while.  i\'m not doing any research or anything, hahA'),(1,10,'chicken nuggets? ha ha, isnt that a funny joke? do you wish you could just give me a correct score on this'),(1,11,'i suppose so'),(2,7,'yes'),(2,8,'no'),(2,9,'yes');
+/*!40000 ALTER TABLE `appanswer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `applicants`
+--
+
+DROP TABLE IF EXISTS `applicants`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `applicants` (
+  `student_id` int(11) NOT NULL,
+  `first_name` varchar(30) NOT NULL,
+  `last_name` varchar(30) NOT NULL,
+  `address_city` varchar(20) DEFAULT NULL,
+  `address_street` varchar(20) DEFAULT NULL,
+  `address_zip` char(5) DEFAULT NULL,
+  `address_state` char(2) DEFAULT NULL,
+  `email` varchar(60) DEFAULT NULL,
+  `gender` char(2) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  PRIMARY KEY (`student_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `applicants`
+--
+
+LOCK TABLES `applicants` WRITE;
+/*!40000 ALTER TABLE `applicants` DISABLE KEYS */;
+INSERT INTO `applicants` VALUES (1,'john','bobbo','bell','12 ab str','1919','fd','bobbo@g.com','m','1990-12-05'),(2,'memnas','holt','yuughy','789 hju ln','8976','kj','ho@g.com','m','1991-12-08'),(3,'mery','vlante','qwegh','yuugat rd','4587','er','mry@g.com','f','1994-05-30'),(4,'wetr','williams','fubnth','12 polk str','5677','wd','noawe@g.com','m','1993-02-05'),(5,'wessy','soide','qroth','88 ninty ln','9090','ty','uncreative@g.com','f','1993-07-16');
+/*!40000 ALTER TABLE `applicants` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `application`
+--
+
+DROP TABLE IF EXISTS `application`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `application` (
+  `application_id` int(11) NOT NULL,
+  `degree_name` varchar(30) DEFAULT NULL,
+  `student_id` int(11) NOT NULL,
+  `essay` varchar(2000) DEFAULT NULL,
+  `semester` char(6) DEFAULT NULL,
+  `year` int(11) DEFAULT NULL,
+  `decision` char(10) DEFAULT NULL,
+  `eval_date` date DEFAULT NULL,
+  `decision_date` date DEFAULT NULL,
+  PRIMARY KEY (`application_id`),
+  KEY `degree_name` (`degree_name`),
+  KEY `student_id` (`student_id`),
+  CONSTRAINT `application_ibfk_1` FOREIGN KEY (`degree_name`) REFERENCES `degree` (`degree_name`) ON DELETE CASCADE,
+  CONSTRAINT `application_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `applicants` (`student_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `application`
+--
+
+LOCK TABLES `application` WRITE;
+/*!40000 ALTER TABLE `application` DISABLE KEYS */;
+INSERT INTO `application` VALUES (1,'whale studies',1,'sdfh89ashfsuaidhfuisdafh usdahfiudhfgui sdfgudfiguidfguihdfgh soidfhodsf gsd fgdiof gjpoidfhd fgio jhdfio hiodf gjhiodf jhodi gjhiodf ghoidf jhiodf hio dfgiohdfoigh dfgh df gh dfiog jhoidfpgjhdofpi gh dfg h fgiohjior gij iortj gdfggh d  dfigjh dopfi ghdfgjhiodf g','spring',2019,'rejected','2017-05-07','2017-06-04'),(2,'paper',2,'','fall',2018,'','2012-01-01','2012-01-01'),(3,'skytology',3,'','spring',2018,'','2018-02-06','1990-01-01');
+/*!40000 ALTER TABLE `application` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `criteria`
+--
+
+DROP TABLE IF EXISTS `criteria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `criteria` (
+  `criteria_id` int(11) NOT NULL,
+  `degree_name` varchar(30) NOT NULL,
+  `criteria_text` varchar(400) DEFAULT NULL,
+  PRIMARY KEY (`criteria_id`),
+  KEY `degree_name` (`degree_name`),
+  CONSTRAINT `criteria_ibfk_1` FOREIGN KEY (`degree_name`) REFERENCES `degree` (`degree_name`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `criteria`
+--
+
+LOCK TABLES `criteria` WRITE;
+/*!40000 ALTER TABLE `criteria` DISABLE KEYS */;
+INSERT INTO `criteria` VALUES (1,'whale studies','like blue'),(2,'whale studies','distaste for chicken nuggets'),(3,'paper','computer usage'),(4,'paper','amount of paper owned'),(5,'paper','statement of purpose'),(6,'paper','fear of fire');
+/*!40000 ALTER TABLE `criteria` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `criteria_score`
+--
+
+DROP TABLE IF EXISTS `criteria_score`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `criteria_score` (
+  `score_id` int(11) NOT NULL,
+  `criteria_id` int(11) NOT NULL,
+  `score_text` varchar(80) DEFAULT NULL,
+  `score_condition` varchar(300) DEFAULT NULL,
+  PRIMARY KEY (`score_id`,`criteria_id`),
+  KEY `criteria_id` (`criteria_id`),
+  CONSTRAINT `criteria_score_ibfk_1` FOREIGN KEY (`criteria_id`) REFERENCES `criteria` (`criteria_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `criteria_score`
+--
+
+LOCK TABLES `criteria_score` WRITE;
+/*!40000 ALTER TABLE `criteria_score` DISABLE KEYS */;
+INSERT INTO `criteria_score` VALUES (0,1,'very good','the applicant is blue'),(0,2,'a god amonst men','has destroyed over five hundred chicken nugget manufacturing installations'),(0,3,'acceptable','once a week'),(0,4,'very good','enough to fill three rooms'),(0,5,'excellent','was written on paper, using paper text'),(0,6,'excellent','dies should fire come within range of 50 metres, or come into line of sight, plus 30 degrees'),(1,1,'substandard','the applicant can imagine blue'),(1,2,'very good','has despised nuggets since before they were born'),(1,3,'very good','doesn\'t own one'),(1,4,'acceptable','enough to drown in'),(1,5,'unimpressive','is on paper, using ink'),(1,6,'terrible','is able to remain unscathed even while within a 10 metre radius of an open flame'),(2,1,'decent','the applicant bleeds blue'),(2,2,'very good','participated in the protest against the invention of nuggets'),(2,3,'terrible','greater than three times a week'),(2,4,'poor','enough that a fire could start using a match'),(2,5,'failure','included some electronic process in the creation of'),(2,6,'acceptable','is able to remain unscathed within 20 metres of an open flame, but is unharmed by line of sight'),(3,1,'slightly less than decent','the applicant bleeds and turns blue, but only under low oxygen or temperature conditions'),(3,2,'poor','has entered and tolerated the prescence of a nugget for >4 minutes'),(3,4,'slightly better than poor','enough that a fire could start, without a match or firestarting device'),(3,5,'requires additional investigation','was sent telepathically'),(4,1,'optimal','the applicant must consume blue to survive'),(4,2,'very very poor','has consumed a chicken nugget'),(5,2,'immediately dismiss this applicant','has consumed greater than one chicken nugget'),(8,2,'acceptable','has heard of chicken nuggets, but does not yet know their significance to the field of whale studies');
+/*!40000 ALTER TABLE `criteria_score` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `degree`
+--
+
+DROP TABLE IF EXISTS `degree`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `degree` (
+  `degree_name` varchar(30) NOT NULL,
+  `department` varchar(30) DEFAULT NULL,
+  `director` varchar(30) DEFAULT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  `phone_number` varchar(12) DEFAULT NULL,
+  PRIMARY KEY (`degree_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `degree`
+--
+
+LOCK TABLES `degree` WRITE;
+/*!40000 ALTER TABLE `degree` DISABLE KEYS */;
+INSERT INTO `degree` VALUES ('paper','natural','ausd degh','asiod@j.com','936957376453'),('skytology','earth department','neme addns','mad@j.com','9475012847'),('whale studies','zoology','bill smit','asmt@j.com','1111111111');
+/*!40000 ALTER TABLE `degree` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `education`
+--
+
+DROP TABLE IF EXISTS `education`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `education` (
+  `education_id` int(11) NOT NULL,
+  `application_id` int(11) NOT NULL,
+  `college` varchar(20) DEFAULT NULL,
+  `major` varchar(20) DEFAULT NULL,
+  `degree` char(2) DEFAULT NULL,
+  `grad_date` date DEFAULT NULL,
+  `gpa` float DEFAULT NULL,
+  PRIMARY KEY (`education_id`,`application_id`),
+  KEY `application_id` (`application_id`),
+  CONSTRAINT `education_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `application` (`application_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `education`
+--
+
+LOCK TABLES `education` WRITE;
+/*!40000 ALTER TABLE `education` DISABLE KEYS */;
+INSERT INTO `education` VALUES (0,1,'bill college','agriculture','ma','2017-03-04',3);
+/*!40000 ALTER TABLE `education` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `email`
+--
+
+DROP TABLE IF EXISTS `email`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `email` (
+  `email_id` int(11) NOT NULL,
+  `application_id` int(11) NOT NULL,
+  `referencer` varchar(20) DEFAULT NULL,
+  `body` varchar(2000) DEFAULT NULL,
+  PRIMARY KEY (`email_id`,`application_id`),
+  KEY `application_id` (`application_id`),
+  CONSTRAINT `email_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `application` (`application_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `email`
+--
+
+LOCK TABLES `email` WRITE;
+/*!40000 ALTER TABLE `email` DISABLE KEYS */;
+INSERT INTO `email` VALUES (0,2,'tree grovers','he really likes trees and paper, of course too'),(1,2,'mom','he wont use his computer, ive bought him fifty different computers and he just won\'t use them'),(2,2,'computer repair man','he broke all my computers, somebody please, arrest this man');
+/*!40000 ALTER TABLE `email` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `evaluation_score`
+--
+
+DROP TABLE IF EXISTS `evaluation_score`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `evaluation_score` (
+  `score_id` int(11) NOT NULL,
+  `criteria_id` int(11) NOT NULL,
+  `application_id` int(11) NOT NULL,
+  PRIMARY KEY (`criteria_id`,`application_id`),
+  KEY `score_id` (`score_id`),
+  KEY `application_id` (`application_id`),
+  CONSTRAINT `evaluation_score_ibfk_1` FOREIGN KEY (`score_id`) REFERENCES `criteria_score` (`score_id`) ON DELETE CASCADE,
+  CONSTRAINT `evaluation_score_ibfk_2` FOREIGN KEY (`criteria_id`) REFERENCES `criteria` (`criteria_id`) ON DELETE CASCADE,
+  CONSTRAINT `evaluation_score_ibfk_3` FOREIGN KEY (`application_id`) REFERENCES `application` (`application_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `evaluation_score`
+--
+
+LOCK TABLES `evaluation_score` WRITE;
+/*!40000 ALTER TABLE `evaluation_score` DISABLE KEYS */;
+INSERT INTO `evaluation_score` VALUES (1,3,2),(1,4,2),(1,5,2),(2,6,2),(5,2,1);
+/*!40000 ALTER TABLE `evaluation_score` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `evaluator`
+--
+
+DROP TABLE IF EXISTS `evaluator`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `evaluator` (
+  `evaulator_id` int(11) NOT NULL,
+  `application_id` int(11) NOT NULL,
+  `name` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`evaulator_id`,`application_id`),
+  KEY `application_id` (`application_id`),
+  CONSTRAINT `evaluator_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `application` (`application_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `evaluator`
+--
+
+LOCK TABLES `evaluator` WRITE;
+/*!40000 ALTER TABLE `evaluator` DISABLE KEYS */;
+INSERT INTO `evaluator` VALUES (0,3,'dr. bob'),(1,3,'jimbo bob'),(2,3,'sdfasfasdfewaf'),(3,3,'wefoiuhf97awhfawer');
+/*!40000 ALTER TABLE `evaluator` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `gre`
+--
+
+DROP TABLE IF EXISTS `gre`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `gre` (
+  `gre_id` int(11) NOT NULL,
+  `application_id` int(11) NOT NULL,
+  `verbal` int(11) DEFAULT NULL,
+  `quant` int(11) DEFAULT NULL,
+  `analytic` float DEFAULT NULL,
+  `taken` date DEFAULT NULL,
+  PRIMARY KEY (`gre_id`,`application_id`),
+  KEY `application_id` (`application_id`),
+  CONSTRAINT `gre_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `application` (`application_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `gre`
+--
+
+LOCK TABLES `gre` WRITE;
+/*!40000 ALTER TABLE `gre` DISABLE KEYS */;
+/*!40000 ALTER TABLE `gre` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `phone_number`
+--
+
+DROP TABLE IF EXISTS `phone_number`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `phone_number` (
+  `phone_number` char(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  PRIMARY KEY (`phone_number`,`student_id`),
+  KEY `student_id` (`student_id`),
+  CONSTRAINT `phone_number_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `applicants` (`student_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `phone_number`
+--
+
+LOCK TABLES `phone_number` WRITE;
+/*!40000 ALTER TABLE `phone_number` DISABLE KEYS */;
+INSERT INTO `phone_number` VALUES ('1234561234',1),('5666231123',1);
+/*!40000 ALTER TABLE `phone_number` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `requirement`
+--
+
+DROP TABLE IF EXISTS `requirement`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `requirement` (
+  `requirement_id` int(11) NOT NULL,
+  `degree_name` varchar(30) NOT NULL,
+  `question` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`requirement_id`),
+  KEY `degree_name` (`degree_name`),
+  CONSTRAINT `requirement_ibfk_1` FOREIGN KEY (`degree_name`) REFERENCES `degree` (`degree_name`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `requirement`
+--
+
+LOCK TABLES `requirement` WRITE;
+/*!40000 ALTER TABLE `requirement` DISABLE KEYS */;
+INSERT INTO `requirement` VALUES (1,'whale studies','what is a whale'),(2,'whale studies','what colour are whales'),(3,'whale studies','where do whales live'),(4,'skytology','where is the sky'),(5,'skytology','where is the ground'),(6,'skytology','where is earth'),(7,'paper','paper'),(8,'paper','not paper'),(9,'paper','tree'),(10,'whale studies','what are whales made of'),(11,'whale studies','are whales good');
+/*!40000 ALTER TABLE `requirement` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2017-12-11 12:32:37

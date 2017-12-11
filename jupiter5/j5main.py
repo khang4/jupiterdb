@@ -6,7 +6,7 @@ jupiter=_jupiter("jupiter");
 def main():
     while 1:
         print();
-        choice=menu(["student mode","degree mode","quit"]);
+        choice=menu(["student mode","degree mode","query mode","quit"]);
         print();
 
         #student mode selected
@@ -40,6 +40,9 @@ def main():
             degreeMode();
 
         elif choice==2:
+            queryMode();
+
+        elif choice==3:
             quit();
 
 #multiple chioce menu, give array of chioces and return
@@ -734,6 +737,14 @@ def selectedApplicationMode(appid):
                         print("   -> <no score>");
 
                 print();
+                print("evaluators:");
+                evaluators=jupiter.getEvaluators(appid);
+                maxEvaluatorId=-1;
+                for ix,x in enumerate(evaluators):
+                    print("{}: {}".format(ix,x[1]));
+                    maxEvaluatorId=max(maxEvaluatorId,x[0]);
+
+                print();
                 evalChoice=menu(["edit evaluation details","add/edit a score","edit evaluators","return"]);
 
                 if evalChoice==0:
@@ -776,7 +787,29 @@ def selectedApplicationMode(appid):
                                     appid],"score_id",possiblescoresGet[scoreSelect][0]);
 
                 elif evalChoice==2:
-                    pass;
+                    print();
+                    print("choose action to do with evaluators:");
+
+                    evaluatorChoice=menu(["add","delete","return"]);
+
+
+                    if evaluatorChoice==0:
+                        print("enter name of new evaluator:");
+                        newEvaluator=input(">");
+
+                        if jupiter.add("evaluator",[maxEvaluatorId+1,appid,
+                            newEvaluator]):
+                            maxEvaluatorId+=1;
+
+                    elif evaluatorChoice==1:
+                        print("enter number next to evaluator to remove:");
+                        evaluDelChoice=int(input(">"));
+
+                        jupiter.delRow("evaluator",["evaluator_id","application_id"],
+                            [evaluators[evaluDelChoice][0],appid]);
+
+                    elif evaluatorChoice==2:
+                        break;
 
                 elif evalChoice==3:
                     break;
@@ -811,6 +844,9 @@ def selectedApplicationMode(appid):
 
         elif selectChoice==8:
             return;
+
+def queryMode():
+    pass;
 
 if __name__=="__main__":
     main();

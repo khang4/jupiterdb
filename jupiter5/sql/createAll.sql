@@ -173,11 +173,11 @@ create table if not exists jupiter.evaluation_score
 
 create table if not exists jupiter.evaluator
 (
-    evaulator_id int not null,
+    evaluator_id int not null,
     application_id int not null,
 
     name varchar(30),
 
-    primary key (evaulator_id,application_id),
+    primary key (evaluator_id,application_id),
     foreign key (application_id) references jupiter.application (application_id) on delete cascade
 );
