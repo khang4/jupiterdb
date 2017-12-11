@@ -81,7 +81,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `degree` WRITE;
 /*!40000 ALTER TABLE `degree` DISABLE KEYS */;
-INSERT INTO `degree` VALUES ('paper','natural','ausd degh','asiod@j.com','936957376453',''),('skytology','earth department','neme addns','mad@j.com','9475012847',''),('whale studies','zoology','bill smit','asmt@j.com','1111111111','');
+INSERT INTO `degree` VALUES ('paper','natural','ausd degh','asiod@j.com','936957376453'),('skytology','earth department','neme addns','mad@j.com','9475012847'),('whale studies','zoology','bill smit','asmt@j.com','1111111111');
 /*!40000 ALTER TABLE `degree` ENABLE KEYS */;
 UNLOCK TABLES;
 

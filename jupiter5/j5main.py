@@ -453,7 +453,7 @@ def applicationMode(studentId,firstName,lastName):
         applications=jupiter.getApplications(studentId);
 
         for ix,x in enumerate(applications):
-            print("{}: {},{},{}".format(ix,x[0],x[1],x[2]));
+            print("{}: degree in {} for  {}, {}".format(ix,x[0],x[1],x[2]));
 
         print();
         appChoice=menu(["select","create","return"]);
