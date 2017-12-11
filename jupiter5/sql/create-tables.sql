@@ -26,8 +26,6 @@ create table if not exists jupiter.degree
     email varchar(30),
     phone_number varchar(12),
 
-    rubric_document varchar(1500),
-
     primary key (degree_name)
 );
 
