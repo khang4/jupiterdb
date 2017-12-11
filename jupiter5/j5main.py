@@ -840,7 +840,11 @@ def selectedApplicationMode(appid):
                 jupiter.update("application","application_id",appid,"year",newYear);
 
         elif selectChoice==7:
-            pass;
+            print("type y to delete this application!!!!");
+            appConfirm=input(">");
+            if appConfirm=="y":
+                jupiter.delRow("application","application_id",appid);
+                return;
 
         elif selectChoice==8:
             return;
