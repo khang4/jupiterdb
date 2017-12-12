@@ -855,9 +855,16 @@ def queryMode():
 
         qchoice=menu(["search for students with degree, semester, and/or year",
             "number of applicants by degree, semester, and year","most popular major",
-            "applicants with lowest gpa but still accepted",
+            "applicants with lowest gpa but still accepted in current period",
+            "query 5",
+            "query 6",
+            "query 7",
+            "query 8",
+            "query 9",
+            "query 10",
             "return"]);
 
+        #q1
         if qchoice==0:
             degrees=[x[0] for x in jupiter.getDegrees()];
             degrees.append("don't search for degree");
@@ -887,12 +894,14 @@ def queryMode():
             for x in res:
                 print("{}, {}".format(x[0],x[1]));
 
+        #q2
         elif qchoice==1:
             print("applicants per degree and term (semester and year):");
             res=jupiter.studentsPerDegree();
             for x in res:
                 print("{} - {}, {}: {}".format(x[1],x[2],x[3],x[0]));
 
+        #q3
         elif qchoice==2:
             print("most popular major:");
             res=jupiter.mostPopularMajor();
@@ -901,14 +910,45 @@ def queryMode():
             else:
                 print("no applicants.");
 
+        #q4
         elif qchoice==3:
-            res=jupiter.acceptedLowestGpa();
-            print("lowest gpa: {}".format(res[0][2]));
-            print("accepted students with that gpa:")
-            for x in res:
-                print("{}, {}".format(x[0],x[1]));
+            res=jupiter.minGpaPeriod();
+            print(res);
+            # print("lowest gpa: {}".format(res[0][2]));
+            # print("accepted students with that gpa:")
+            # for x in res:
+            #     print("{}, {}".format(x[0],x[1]));
 
+        #q5
         elif qchoice==4:
+            res=jupiter.degreeByMajor();
+            print(res);
+
+        #q6
+        elif qchoice==5:
+            res=jupiter.unevaluated();
+            print(res);
+
+        #q7
+        elif qchoice==6:
+            res=jupiter.decisionsCounts();
+            print(res);
+
+        #q8
+        elif qchoice==7:
+            res=jupiter.acceptenceEmails();
+            print(res);
+
+        #q9
+        elif qchoice==8:
+            pass;
+
+        #q10
+        elif qchoice==9:
+            res=jupiter.mostAttend();
+            print(res);
+
+        elif qchoice==10:
             return;
 
 if __name__=="__main__":

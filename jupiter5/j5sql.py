@@ -275,7 +275,7 @@ class _jupiter:
         except mysql.connector.Error as err:
             print(err);
             return 0;
-
+    #q1
     def studentsearchDegree(self,degree,year="",semester=""):
         whereString=[];
         if degree and degree!="":
@@ -297,6 +297,7 @@ class _jupiter:
             print(err);
             return 0;
 
+    #q2
     def studentsPerDegree(self):
         try:
             self.cursor.execute('''select count(student_id),degree_name,semester,year from application group by degree_name,semester,year''');
@@ -306,6 +307,7 @@ class _jupiter:
             print(err);
             return 0;
 
+    #q3
     def mostPopularMajor(self):
         try:
             self.cursor.execute('''select count(major) as majorcount,major from education group by major order by majorcount desc limit 1''');
@@ -315,9 +317,60 @@ class _jupiter:
             print(err);
             return 0;
 
-    def acceptedLowestGpa(self):
+    #q4
+    def minGpaPeriod(self):
         try:
-            self.cursor.execute('''select last_name,first_name,gpa from applicants,(select student_id,gpa from application,(select application_id,gpa from education where gpa=(select min(gpa) from education)) as mingpa where application.application_id=mingpa.application_id and application.decision="accepted") as mingpa where applicants.student_id=mingpa.student_id''');
+            self.cursor.execute('''select last_name,first_name,gpa from applicants,(select student_id,gpa from application,(select application_id,gpa from education where gpa=(select min(gpa) from education)) as mingpa where application.application_id=mingpa.application_id and application.decision="accepted" and year(application.decision_date)=year(curdate()) and semester="spring") as mingpa where applicants.student_id=mingpa.student_id;''');
+            return self.cursor.fetchall();
+
+        except mysql.connector.Error as err:
+            print(err);
+            return 0;
+
+    #q5
+    def degreeByMajor(self):
+        try:
+            self.cursor.execute('''select count(application.application_id),degree_name,major from application,education where application.application_id=education.application_id group by degree_name,major''');
+            return self.cursor.fetchall();
+
+        except mysql.connector.Error as err:
+            print(err);
+            return 0;
+
+    #q6
+    def unevaluated(self):
+        try:
+            self.cursor.execute('''select application_id from application where eval_date<"2000-01-01"''');
+            return self.cursor.fetchall();
+
+        except mysql.connector.Error as err:
+            print(err);
+            return 0;
+
+    #q7
+    def decisionsCounts(self):
+        try:
+            self.cursor.execute('''select count(application_id),decision,degree_name,year from application group by decision,degree_name,year''');
+            return self.cursor.fetchall();
+
+        except mysql.connector.Error as err:
+            print(err);
+            return 0;
+
+    #q8
+    def acceptenceEmails(self):
+        try:
+            self.cursor.execute('''select acceptences,referencer from (select count(referencer) acceptences,referencer from email,application where email.application_id=application.application_id and decision="accepted" group by referencer) as acceptenceCount,(select max(acceptences) maxacceptences from (select count(referencer) acceptences,referencer from email,application where email.application_id=application.application_id and decision="accepted" group by referencer) acceptenceCount) as maxacceptences where acceptenceCount.acceptences=maxacceptences.maxacceptences''');
+            return self.cursor.fetchall();
+
+        except mysql.connector.Error as err:
+            print(err);
+            return 0;
+
+    #q10
+    def mostAttend(self):
+        try:
+            self.cursor.execute('''select collegecountmax.collegecountmax,college from (select count(application_id) as collegecount,college from education where year(grad_date)>year(curdate())-5 group by college) as collegecount,(select max(collegecount.collegecount) as collegecountmax from (select count(application_id) collegecount,college from education where year(grad_date)>year(curdate())-5 group by college) as collegecount) as collegecountmax where collegecount.collegecount=collegecountmax.collegecountmax''');
             return self.cursor.fetchall();
 
         except mysql.connector.Error as err:
