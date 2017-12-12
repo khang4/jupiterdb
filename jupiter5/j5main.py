@@ -528,7 +528,7 @@ def selectedApplicationMode(appid):
                     editChoice=int(input(">"));
                     print("select field to edit:");
                     fieldChoice=menu(["college","major","degree type","graduation date","gpa"]);
-                    educationFields=["college","major","degree","grad_data","gpa"];
+                    educationFields=["college","major","degree","grad_date","gpa"];
 
                     print("input new value:");
                     if fieldChoice==3:
