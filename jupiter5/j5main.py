@@ -1,5 +1,6 @@
 from j5sql import _jupiter;
 import j5const;
+import datetime;
 
 jupiter=_jupiter("jupiter");
 
@@ -912,6 +913,13 @@ def queryMode():
 
         #q4
         elif qchoice==3:
+            semester=datetime.date.today().month;
+
+            if semester<=6:
+                semester="spring";
+            else:
+                semester="fall";
+
             res=jupiter.minGpaPeriod();
             print(res);
             # print("lowest gpa: {}".format(res[0][2]));

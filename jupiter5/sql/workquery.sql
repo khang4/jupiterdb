@@ -71,6 +71,7 @@ select collegecountmax.collegecountmax,college from
 (select max(collegecount.collegecount) as collegecountmax from (select count(application_id) collegecount,college from education where year(grad_date)>year(curdate())-5 group by college) as collegecount) as collegecountmax
 where collegecount.collegecount=collegecountmax.collegecountmax;
 
+select count(application_id) as collegecount,college from education where year(grad_date)>year(curdate())-5 group by college;
 
 
 

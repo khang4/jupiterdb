@@ -1,4 +1,5 @@
 import mysql.connector;
+import datetime;
 
 class _jupiter:
     #construct by giving name of database to connect to
@@ -319,8 +320,26 @@ class _jupiter:
 
     #q4
     def minGpaPeriod(self):
+        monthrange=datetime.date.today().month;
+
+        if monthrange<=6:
+            monthrange='<=6';
+        else:
+            monthrange='>=7';
+
         try:
-            self.cursor.execute('''select last_name,first_name,gpa from applicants,(select student_id,gpa from application,(select application_id,gpa from education where gpa=(select min(gpa) from education)) as mingpa where application.application_id=mingpa.application_id and application.decision="accepted" and year(application.decision_date)=year(curdate()) and semester="spring") as mingpa where applicants.student_id=mingpa.student_id;''');
+            self.cursor.execute('''select mingpa,last_name,first_name from
+                (select last_name,first_name,gpa,decision_date from education,application,applicants
+                where education.application_id=application.application_id
+                and application.student_id=applicants.student_id
+                and decision="accepted" and year(decision_date)=year(curdate())
+                and month(decision_date){}) as periodgpas,
+                (select min(gpa) mingpa from education,application
+                where education.application_id=application.application_id
+                and decision="accepted" and year(decision_date)=year(curdate())
+                and month(decision_date){}) as mingpa
+                where periodgpas.gpa=mingpa.mingpa;
+                '''.format(monthrange,monthrange));
             return self.cursor.fetchall();
 
         except mysql.connector.Error as err:
