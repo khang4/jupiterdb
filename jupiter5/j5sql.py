@@ -276,6 +276,54 @@ class _jupiter:
             print(err);
             return 0;
 
+    def studentsearchDegree(self,degree,year="",semester=""):
+        whereString=[];
+        if degree and degree!="":
+            whereString.append('''degree_name="{}"'''.format(degree));
+
+        if year and year!="":
+            whereString.append('''year="{}"'''.format(year));
+
+        if semester and semester!="":
+            whereString.append('''semester="{}"'''.format(semester));
+
+        whereString=" and ".join(whereString);
+
+        try:
+            self.cursor.execute('''select last_name,first_name from applicants,application where applicants.student_id=application.student_id and {}'''.format(whereString));
+            return self.cursor.fetchall();
+
+        except mysql.connector.Error as err:
+            print(err);
+            return 0;
+
+    def studentsPerDegree(self):
+        try:
+            self.cursor.execute('''select count(student_id),degree_name,semester,year from application group by degree_name,semester,year''');
+            return self.cursor.fetchall();
+
+        except mysql.connector.Error as err:
+            print(err);
+            return 0;
+
+    def mostPopularMajor(self):
+        try:
+            self.cursor.execute('''select count(major) as majorcount,major from education group by major order by majorcount desc limit 1''');
+            return self.cursor.fetchone();
+
+        except mysql.connector.Error as err:
+            print(err);
+            return 0;
+
+    def acceptedLowestGpa(self):
+        try:
+            self.cursor.execute('''select last_name,first_name,gpa from applicants,(select student_id,gpa from application,(select application_id,gpa from education where gpa=(select min(gpa) from education)) as mingpa where application.application_id=mingpa.application_id and application.decision="accepted") as mingpa where applicants.student_id=mingpa.student_id''');
+            return self.cursor.fetchall();
+
+        except mysql.connector.Error as err:
+            print(err);
+            return 0;
+
 #assemble key names from array key to strings from ids with ANDS
 #useful for matching primary keys
 def genPrimaryWhere(key,id):

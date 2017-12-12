@@ -14,7 +14,7 @@ class jupiter
 
     int getLastId(string table,string primaryKey);
 
-    /*-- applicants --*/
+    /*-- main getters --*/
     array getApplicants();
     array getDegrees();
     array getStudent(int id);
@@ -32,6 +32,12 @@ class jupiter
     string getEssay(int appid);
     array getAppScores(int appid);
     array getEvaluators(int appid);
+
+    /*-- required queries --*/
+    array studentsearchDegree(string degree,string semester,int year);
+    array studentsPerDegree();
+    array mostPopularMajor();
+    array acceptedLowestGpa();
 }
 
 /*-- utility --*/

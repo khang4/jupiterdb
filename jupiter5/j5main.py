@@ -849,7 +849,67 @@ def selectedApplicationMode(appid):
             return;
 
 def queryMode():
-    pass;
+    while 1:
+        print();
+        print("select query to perform:");
+
+        qchoice=menu(["search for students with degree, semester, and/or year",
+            "number of applicants by degree, semester, and year","most popular major",
+            "applicants with lowest gpa but still accepted",
+            "return"]);
+
+        if qchoice==0:
+            degrees=[x[0] for x in jupiter.getDegrees()];
+            degrees.append("don't search for degree");
+            print("choose a degree to search students in:");
+            degreeChoice=menu(degrees);
+
+            if degreeChoice==len(degrees)-1:
+                degreeChoice="";
+            else:
+                degreeChoice=degrees[degreeChoice];
+
+            print("input year to search in, or leave blank to not search by year:");
+            yearChoice=input(">");
+            if yearChoice.isdigit():
+                yearChoice=int(yearChoice);
+            else:
+                yearChoice="";
+
+            print("select semester to search in:");
+            semesters=["spring","fall",""];
+            semesterChoice=menu(["spring","fall","don't search with semester"]);
+            semesterChoice=semesters[semesterChoice];
+
+            res=jupiter.studentsearchDegree(degreeChoice,yearChoice,semesterChoice);
+
+            print("results:");
+            for x in res:
+                print("{}, {}".format(x[0],x[1]));
+
+        elif qchoice==1:
+            print("applicants per degree and term (semester and year):");
+            res=jupiter.studentsPerDegree();
+            for x in res:
+                print("{} - {}, {}: {}".format(x[1],x[2],x[3],x[0]));
+
+        elif qchoice==2:
+            print("most popular major:");
+            res=jupiter.mostPopularMajor();
+            if len(res)>0:
+                print("{} with {} applicants".format(res[1],res[0]));
+            else:
+                print("no applicants.");
+
+        elif qchoice==3:
+            res=jupiter.acceptedLowestGpa();
+            print("lowest gpa: {}".format(res[0][2]));
+            print("accepted students with that gpa:")
+            for x in res:
+                print("{}, {}".format(x[0],x[1]));
+
+        elif qchoice==4:
+            return;
 
 if __name__=="__main__":
     main();
