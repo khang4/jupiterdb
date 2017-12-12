@@ -46,7 +46,7 @@ create table if not exists jupiter.requirement
     question varchar(200),
 
     primary key (requirement_id),
-    foreign key (degree_name) references jupiter.degree (degree_name) on delete cascade
+    foreign key (degree_name) references jupiter.degree (degree_name) on delete cascade on update cascade
 );
 
 create table if not exists jupiter.answer
@@ -67,7 +67,7 @@ create table if not exists jupiter.criteria
     criteria_text varchar(400),
 
     primary key (criteria_id),
-    foreign key (degree_name) references jupiter.degree (degree_name) on delete cascade
+    foreign key (degree_name) references jupiter.degree (degree_name) on update cascade on delete cascade
 );
 
 create table if not exists jupiter.criteria_score
@@ -98,7 +98,7 @@ create table if not exists jupiter.application
     decision_date date,
 
     primary key (application_id),
-    foreign key (degree_name) references jupiter.degree (degree_name) on delete cascade,
+    foreign key (degree_name) references jupiter.degree (degree_name) on delete cascade on update cascade,
     foreign key (student_id) references jupiter.applicants (student_id) on delete cascade
 );
 
@@ -154,6 +154,10 @@ create table if not exists jupiter.gre
     analytic float,
 
     taken date,
+
+    check (verbal>=130 and verbal<=170
+    and quant>=130 and quant<=170
+    and analytic>=0 and analytic<=6),
 
     primary key (gre_id,application_id),
     foreign key (application_id) references jupiter.application (application_id) on delete cascade
