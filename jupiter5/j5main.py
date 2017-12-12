@@ -855,7 +855,8 @@ def queryMode():
         print("select query to perform:");
 
         qchoice=menu(["search for students with degree, semester, and/or year",
-            "number of applicants by degree, semester, and year","most popular major",
+            "number of applicants by degree, semester, and year",
+            "most popular major in a year",
             "applicants with lowest gpa but still accepted in current period",
             "query 5",
             "query 6",
@@ -904,28 +905,28 @@ def queryMode():
 
         #q3
         elif qchoice==2:
-            print("most popular major:");
-            res=jupiter.mostPopularMajor();
-            if len(res)>0:
+            print("most popular major by year:");
+            print("input year to search in:");
+            yearChoice=int(input(">"));
+
+            res=jupiter.mostPopularMajor(yearChoice);
+
+            if res and len(res)>0:
                 print("{} with {} applicants".format(res[1],res[0]));
             else:
-                print("no applicants.");
+                print("no applicants found");
 
         #q4
         elif qchoice==3:
-            semester=datetime.date.today().month;
-
-            if semester<=6:
-                semester="spring";
-            else:
-                semester="fall";
-
             res=jupiter.minGpaPeriod();
-            print(res);
-            # print("lowest gpa: {}".format(res[0][2]));
-            # print("accepted students with that gpa:")
-            # for x in res:
-            #     print("{}, {}".format(x[0],x[1]));
+
+            if not len(res):
+                print("no applicants found");
+                break;
+
+            print("applicants accepted in current period with lowest gpa ({}):".format(res[0][0]));
+            for x in res:
+                print("{}, {}".format(x[1],x[2]));
 
         #q5
         elif qchoice==4:

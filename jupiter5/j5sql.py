@@ -309,9 +309,11 @@ class _jupiter:
             return 0;
 
     #q3
-    def mostPopularMajor(self):
+    def mostPopularMajor(self,year):
         try:
-            self.cursor.execute('''select count(major) as majorcount,major from education group by major order by majorcount desc limit 1''');
+            self.cursor.execute('''select count(major) majorcount,major from education where
+                year(grad_date)="{}" group by major order by majorcount desc limit 1'''
+                .format(year));
             return self.cursor.fetchone();
 
         except mysql.connector.Error as err:
