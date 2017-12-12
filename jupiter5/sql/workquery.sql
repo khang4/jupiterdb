@@ -18,6 +18,7 @@ select count(student_id),degree_name,semester,year from application group by deg
 /*query 3*/
 select count(major) majorcount,major from education where year(grad_date)="2015" group by major order by majorcount desc limit 1;
 
+select major,grad_date from education;
 select count(major) as majorcount,major from education group by major order by majorcount desc limit 1;
 
 select count(major) majorcount,major from education where year(grad_date)="2015" group by major order by majorcount desc limit 1;
@@ -27,11 +28,33 @@ select application_id,gpa from education where gpa=(select min(gpa) from educati
 
 /*query 4:*/
 select last_name,first_name,gpa from applicants,
-(select student_id,gpa 
+(select student_id,gpa
 from application,
 (select application_id,gpa from education where gpa=(select min(gpa) from education)) as mingpa
-where application.application_id=mingpa.application_id and application.decision="accepted" and year(application.decision_date)=year(curdate()) and semester="spring") as mingpa where
+where application.application_id=mingpa.application_id and application.decision="accepted" and year(application.decision_date)=year(curdate()) and month(application.decision_date)>=1 and month(application.decision_date)<=6) as mingpa where
 applicants.student_id=mingpa.student_id;
+
+select gpa,decision_date from education,application
+where education.application_id=application.application_id;
+
+select min(gpa) mingpa from education,application
+where education.application_id=application.application_id
+and decision="accepted" and year(decision_date)=year(curdate())
+and month(decision_date)<=6;
+
+select mingpa,last_name,first_name from
+(select last_name,first_name,gpa,decision_date from education,application,applicants
+where education.application_id=application.application_id
+and application.student_id=applicants.student_id
+and decision="accepted" and year(decision_date)=year(curdate())
+and month(decision_date)<=6) as periodgpas,
+(select min(gpa) mingpa from education,application
+where education.application_id=application.application_id
+and decision="accepted" and year(decision_date)=year(curdate())
+and month(decision_date)<=6) as mingpa
+where periodgpas.gpa=mingpa.mingpa;
+
+select * from application;
 
 /*query 5*/
 select count(application.application_id),degree_name,major from application,education where application.application_id=education.application_id group by degree_name,major;
@@ -59,14 +82,19 @@ where acceptenceCount.acceptences=maxacceptences.maxacceptences;
 
 
 /*9*/
-
+select max(verbal),max(quant),max(analytic),
+min(verbal),min(quant),min(analytic),
+stddev(verbal),stddev(quant),stddev(analytic),
+degree_name,year from gre,application where
+gre.application_id=application.application_id
+group by year,degree_name;
 
 
 select * from education;
 select count(application_id) collegecount,college from education where year(grad_date)>year(curdate())-5 group by college;
 
 /*10*/
-select collegecountmax.collegecountmax,college from 
+select collegecountmax.collegecountmax,college from
 (select count(application_id) as collegecount,college from education where year(grad_date)>year(curdate())-5 group by college) as collegecount,
 (select max(collegecount.collegecount) as collegecountmax from (select count(application_id) collegecount,college from education where year(grad_date)>year(curdate())-5 group by college) as collegecount) as collegecountmax
 where collegecount.collegecount=collegecountmax.collegecountmax;

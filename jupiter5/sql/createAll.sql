@@ -67,7 +67,7 @@ create table if not exists jupiter.criteria
     criteria_text varchar(400),
 
     primary key (criteria_id),
-    foreign key (degree_name) references jupiter.degree (degree_name) on update cascade on delete cascade
+    foreign key (degree_name) references jupiter.degree (degree_name) on delete cascade on update cascade
 );
 
 create table if not exists jupiter.criteria_score

@@ -50,6 +50,12 @@ decision="accepted" group by referencer) acceptenceCount) as maxacceptences
 where acceptenceCount.acceptences=maxacceptences.maxacceptences;
 
 /* query 9 */
+select max(verbal),max(quant),max(analytic),
+min(verbal),min(quant),min(analytic),
+stddev(verbal),stddev(quant),stddev(analytic),
+degree_name,year from gre,application where
+gre.application_id=application.application_id
+group by year,degree_name;
 
 /* query 10 */
 select collegecountmax.collegecountmax,college from
