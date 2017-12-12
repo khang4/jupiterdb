@@ -6,7 +6,7 @@ jupiter=_jupiter("jupiter");
 def main():
     while 1:
         print();
-        choice=menu(["student mode","degree mode","quit"]);
+        choice=menu(["student mode","degree mode","query mode","quit"]);
         print();
 
         #student mode selected
@@ -40,6 +40,9 @@ def main():
             degreeMode();
 
         elif choice==2:
+            queryMode();
+
+        elif choice==3:
             quit();
 
 #multiple chioce menu, give array of chioces and return
@@ -453,7 +456,7 @@ def applicationMode(studentId,firstName,lastName):
         applications=jupiter.getApplications(studentId);
 
         for ix,x in enumerate(applications):
-            print("{}: {},{},{}".format(ix,x[0],x[1],x[2]));
+            print("{}: degree in {} for  {}, {}".format(ix,x[0],x[1],x[2]));
 
         print();
         appChoice=menu(["select","create","return"]);
@@ -477,7 +480,8 @@ def applicationMode(studentId,firstName,lastName):
             createYear=int(input(">"));
 
             if jupiter.add("application",[j5const.tableMaxKeys["application"]+1,
-                degrees[createDegree][0],studentId,"",semesters[createSemester],createYear,"","2012-01-01","2012-01-01"]):
+                degrees[createDegree][0],studentId,"",semesters[createSemester],createYear,
+                "","1990-01-01","1990-01-01"]):
                 j5const.tableMaxKeys["application"]+=1;
 
         elif appChoice==2:
@@ -711,9 +715,16 @@ def selectedApplicationMode(appid):
 
             while 1:
                 print();
-                evalDetail=jupiter.getEvalDetails(appid);
+                evalDetail=list(jupiter.getEvalDetails(appid));
                 evalScores=jupiter.getAppScores(appid);
                 print("evaluation details of current application:");
+
+                if evalDetail[1].year<2000:
+                    evalDetail[1]=""
+
+                if evalDetail[2].year<2000:
+                    evalDetail[2]=""
+
                 print("decision: {}\nevaluation creation date: {}\nevaluation decision date: {}".format(evalDetail[0],evalDetail[1],evalDetail[2]));
 
                 print();
@@ -726,6 +737,14 @@ def selectedApplicationMode(appid):
                         print("   -> <no score>");
 
                 print();
+                print("evaluators:");
+                evaluators=jupiter.getEvaluators(appid);
+                maxEvaluatorId=-1;
+                for ix,x in enumerate(evaluators):
+                    print("{}: {}".format(ix,x[1]));
+                    maxEvaluatorId=max(maxEvaluatorId,x[0]);
+
+                print();
                 evalChoice=menu(["edit evaluation details","add/edit a score","edit evaluators","return"]);
 
                 if evalChoice==0:
@@ -736,7 +755,7 @@ def selectedApplicationMode(appid):
 
                     print("input new value:");
                     if fieldChoice==0:
-                        newValue=decisionValues[menu(["accpeted","rejected","clear"])];
+                        newValue=decisionValues[menu(["accepted","rejected","clear"])];
 
                     else:
                         newValue=promptDate();
@@ -768,7 +787,28 @@ def selectedApplicationMode(appid):
                                     appid],"score_id",possiblescoresGet[scoreSelect][0]);
 
                 elif evalChoice==2:
-                    pass;
+                    print();
+                    print("choose action to do with evaluators:");
+
+                    evaluatorChoice=menu(["add","delete","return"]);
+
+                    if evaluatorChoice==0:
+                        print("enter name of new evaluator:");
+                        newEvaluator=input(">");
+
+                        if jupiter.add("evaluator",[maxEvaluatorId+1,appid,
+                            newEvaluator]):
+                            maxEvaluatorId+=1;
+
+                    elif evaluatorChoice==1:
+                        print("enter number next to evaluator to remove:");
+                        evaluDelChoice=int(input(">"));
+
+                        jupiter.delRow("evaluator",["evaluator_id","application_id"],
+                            [evaluators[evaluDelChoice][0],appid]);
+
+                    elif evaluatorChoice==2:
+                        break;
 
                 elif evalChoice==3:
                     break;
@@ -799,10 +839,17 @@ def selectedApplicationMode(appid):
                 jupiter.update("application","application_id",appid,"year",newYear);
 
         elif selectChoice==7:
-            pass;
+            print("type y to delete this application!!!!");
+            appConfirm=input(">");
+            if appConfirm=="y":
+                jupiter.delRow("application","application_id",appid);
+                return;
 
         elif selectChoice==8:
             return;
+
+def queryMode():
+    pass;
 
 if __name__=="__main__":
     main();

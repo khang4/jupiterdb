@@ -31,6 +31,7 @@ class jupiter
     array getScores(int critId); //get all possible scores for a criteria (NOT actual scores)
     string getEssay(int appid);
     array getAppScores(int appid);
+    array getEvaluators(int appid);
 }
 
 /*-- utility --*/
