@@ -2,7 +2,13 @@ from j5sql import _jupiter;
 import j5const;
 import datetime;
 
-jupiter=_jupiter("jupiter");
+#enter database credentials and details here:
+username="root";
+password="";
+host="127.0.0.1";
+database="jupiter";
+
+jupiter=_jupiter(username,password,host,database);
 
 def main():
     while 1:
@@ -809,7 +815,7 @@ def selectedApplicationMode(appid):
                             [evaluators[evaluDelChoice][0],appid]);
 
                     elif evaluatorChoice==2:
-                        break;
+                        pass;
 
                 elif evalChoice==3:
                     break;

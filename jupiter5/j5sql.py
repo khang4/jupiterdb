@@ -3,8 +3,8 @@ import datetime;
 
 class _jupiter:
     #construct by giving name of database to connect to
-    def __init__(self,database):
-        self.connection=mysql.connector.connect(user="root",password="",host="127.0.0.1",database=database);
+    def __init__(self,user="root",password="",host="127.0.0.1",database="jupiter"):
+        self.connection=mysql.connector.connect(user=user,password=password,host=host,database=database);
         self.cursor=self.connection.cursor();
 
     #GENERAL sql add function
