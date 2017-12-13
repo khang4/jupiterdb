@@ -1,4 +1,8 @@
 /* query 1 */
+/* sample input for this query:
+    degree: whale studies
+    year: 2019
+    semester: spring*/
 select distinct last_name,first_name from applicants,
 application where degree_name="whale studies" and
 applicants.student_id=application.student_id and
@@ -8,21 +12,30 @@ year="2019" and semester="spring";
 select count(student_id),degree_name,semester,year
 from application group by degree_name,semester,year;
 
-/* query 3 */
+/* query 3
+   sample input for this query:
+   year: 2015*/
 select count(major) majorcount,major from education where
 year(grad_date)="2015" group by major order by majorcount desc limit 1;
 
-/* query 4 */
+/* query 4
+   this query requires the program to specify
+   the current semester, which is determined not
+   by the string "fall" or "spring", but month
+   >=6 or >6. The sample semester-month-range for
+   this query is >=6, so the fall semester (now).
+   When using the program the program will automatically
+   determine this.*/
 select mingpa,last_name,first_name from
 (select last_name,first_name,gpa,decision_date from education,application,applicants
 where education.application_id=application.application_id
 and application.student_id=applicants.student_id
 and decision="accepted" and year(decision_date)=year(curdate())
-and month(decision_date)<=6) as periodgpas,
+and month(decision_date)>=6) as periodgpas,
 (select min(gpa) mingpa from education,application
 where education.application_id=application.application_id
 and decision="accepted" and year(decision_date)=year(curdate())
-and month(decision_date)<=6) as mingpa
+and month(decision_date)>=6) as mingpa
 where periodgpas.gpa=mingpa.mingpa;
 
 /* query 5 */
