@@ -1,3 +1,7 @@
+#jupiter database sql connection file
+#creator: khang ngo
+#email: khang4@umbc.edu
+
 import mysql.connector;
 import datetime;
 

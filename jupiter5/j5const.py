@@ -1,3 +1,7 @@
+#jupiter database "constants" (not really) file
+#creator: khang ngo
+#email: khang4@umbc.edu
+
 from j5main import jupiter;
 
 #[table name,table key name]

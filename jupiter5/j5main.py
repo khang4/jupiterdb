@@ -1,3 +1,7 @@
+#jupiter database main file
+#creator: khang ngo
+#email: khang4@umbc.edu
+
 from j5sql import _jupiter;
 import j5const;
 import datetime;
@@ -6,6 +10,8 @@ import datetime;
 username="root";
 password="";
 host="127.0.0.1";
+
+#the database must be called jupiter for createAll to work!!
 database="jupiter";
 
 jupiter=_jupiter(username,password,host,database);
