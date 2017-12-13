@@ -858,12 +858,12 @@ def queryMode():
             "number of applicants by degree, semester, and year",
             "most popular major in a year",
             "applicants with lowest gpa but still accepted in current period",
-            "query 5",
-            "query 6",
-            "query 7",
-            "query 8",
-            "query 9",
-            "query 10",
+            "applying applicants with a certain degree",
+            "not yet evaluated applications",
+            "application decisions per program and year",
+            "best reference emailers",
+            "GRE score statistics by degree and applying year",
+            "most attended college in past 5 years",
             "return"]);
 
         #q1
@@ -896,12 +896,16 @@ def queryMode():
             for x in res:
                 print("{}, {}".format(x[0],x[1]));
 
+            input("press enter to continue...");
+
         #q2
         elif qchoice==1:
             print("applicants per degree and term (semester and year):");
             res=jupiter.studentsPerDegree();
             for x in res:
-                print("{} - {}, {}: {}".format(x[1],x[2],x[3],x[0]));
+                print("{} applicant(s) applied to {} in {}, {}".format(x[0],x[1],x[2],x[3]));
+
+            input("press enter to continue...");
 
         #q3
         elif qchoice==2:
@@ -916,6 +920,8 @@ def queryMode():
             else:
                 print("no applicants found");
 
+            input("press enter to continue...");
+
         #q4
         elif qchoice==3:
             res=jupiter.minGpaPeriod();
@@ -928,34 +934,77 @@ def queryMode():
             for x in res:
                 print("{}, {}".format(x[1],x[2]));
 
+            input("press enter to continue...");
+
         #q5
         elif qchoice==4:
             res=jupiter.degreeByMajor();
-            print(res);
+
+            print("applicants applying to a degree with a certain major:");
+            for x in res:
+                print("{} applicant(s) applying to {} with a degree in {}".format(x[0],x[1],x[2]));
+
+            input("press enter to continue...");
 
         #q6
         elif qchoice==5:
             res=jupiter.unevaluated();
-            print(res);
+
+            print("applications that have not yet been evaluated:");
+            for x in res:
+                print("application #{}".format(x[0]));
+
+            input("press enter to continue...");
 
         #q7
         elif qchoice==6:
             res=jupiter.decisionsCounts();
-            print(res);
+
+            print("decisions made for each program each year:");
+            for x in res:
+                if x[1]=="":
+                    desString="undecided";
+                else:
+                    desString=x[1];
+                print("{} {} application(s) for {} in {}".format(x[0],desString,x[2],x[3]));
+
+            input("press enter to continue...");
 
         #q8
         elif qchoice==7:
             res=jupiter.acceptenceEmails();
-            print(res);
+
+            print("referencers who appeared most frequently on accepted applications:");
+            for x in res:
+                print("{} - {} accepted applications".format(x[1],x[0]));
+
+            input("press enter to continue...");
 
         #q9
         elif qchoice==8:
-            pass;
+            res=jupiter.greStats();
+
+            print("gre statistics:");
+            for x in res:
+                print("for applicants applying for {} in {}:".format(x[9],x[10]));
+                print("{:12} {:>5} {:>5} {:>7}".format("section","min","max","stddev"));
+                print("{:12} {:5} {:5} {:7.3}".format("reading",x[3],x[4],x[5]));
+                print("{:12} {:5} {:5} {:7.3}".format("quantitative",x[0],x[1],x[2]));
+                print("{:12} {:5} {:5} {:7.3}".format("analytical",x[6],x[7],x[8]));
+                print();
+
+            input("press enter to continue...");
 
         #q10
         elif qchoice==9:
             res=jupiter.mostAttend();
-            print(res);
+
+            print("college most attended in last 5 years:");
+
+            for x in res:
+                print("{} with {} applicants".format(x[1],x[0]));
+
+            input("press enter to continue...");
 
         elif qchoice==10:
             return;

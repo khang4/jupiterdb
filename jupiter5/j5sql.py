@@ -388,6 +388,21 @@ class _jupiter:
             print(err);
             return 0;
 
+    #q9
+    def greStats(self):
+        try:
+            self.cursor.execute('''select max(verbal),max(quant),max(analytic),
+                min(verbal),min(quant),min(analytic),
+                stddev(verbal),stddev(quant),stddev(analytic),
+                degree_name,year from gre,application where
+                gre.application_id=application.application_id
+                group by year,degree_name''');
+            return self.cursor.fetchall();
+
+        except mysql.connector.Error as err:
+            print(err);
+            return 0;
+
     #q10
     def mostAttend(self):
         try:
