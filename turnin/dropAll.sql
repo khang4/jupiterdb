@@ -1,0 +1,15 @@
+unlock tables;
+drop table if exists jupiter.evaluator;
+drop table if exists jupiter.evaluation_score;
+drop table if exists jupiter.gre;
+drop table if exists jupiter.email;
+drop table if exists jupiter.education;
+drop table if exists jupiter.appAnswer;
+drop table if exists jupiter.criteria_score;
+drop table if exists jupiter.answer;
+drop table if exists jupiter.criteria;
+drop table if exists jupiter.requirement;
+drop table if exists jupiter.phone_number;
+drop table if exists jupiter.application;
+drop table if exists jupiter.degree;
+drop table if exists jupiter.applicants;
